@@ -1,3 +1,5 @@
+import HeroForm from "@/components/forms/HeroForm";
+
 export default function Home() {
   return (
     <main>
@@ -11,17 +13,7 @@ export default function Home() {
           </h2>
         </div>
 
-        <form className="inline-flex items-center shadow-lg shadow-gray-700/40">
-          <span className="py-4  pl-4 bg-white">linklist.to/</span>
-          <input
-            type="text"
-            className="py-4 bg-white outline-none"
-            placeholder="username"
-          />
-          <button className="py-4 px-6 bg-blue-500 text-white">
-            Join for free
-          </button>
-        </form>
+        <HeroForm />
       </section>
     </main>
   );

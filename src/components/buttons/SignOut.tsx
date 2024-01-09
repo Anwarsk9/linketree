@@ -9,7 +9,7 @@ const SignOut = () => {
   return (
     <button
       onClick={() => signOut()}
-      className="flex gap-2 items-center border p-2 shadow-lg hover:text-black"
+      className="flex gap-2 items-center border py-2 px-4 shadow-lg hover:text-black"
     >
       <span>Lagout</span>
       <FontAwesomeIcon icon={faRightFromBracket} />

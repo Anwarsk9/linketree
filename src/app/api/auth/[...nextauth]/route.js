@@ -1,5 +1,5 @@
 import { MongoDBAdapter } from "@auth/mongodb-adapter";
-import clientPromise from "@/libs/mongoClient";
+import clientPromise from "@/libs/mongoClient"
 import NextAuth from "next-auth";
 import GoogleProvider from "next-auth/providers/google";
 

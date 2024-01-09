@@ -11,10 +11,10 @@ const Header = async () => {
     <header className=" py-4 bg-white border-b-4">
       <div className="flex justify-between max-w-4xl px-8 mx-auto ">
         <div className="flex gap-6 items-center">
-          <Link href={"/"}>
-            <div className="flex items-center gap-2">
-              <FontAwesomeIcon icon={faLink} className="text-lg text-blue-600" />
-              <span>LinkList</span>
+          <Link href={"/"}  className="text-lg text-blue-600" >
+            <div className="flex items-center font-extrabold gap-2">
+              <FontAwesomeIcon icon={faLink}/>
+              <span>LinkTree</span>
             </div>
           </Link>
           <nav className="flex gap-4 text-gray-500 text-sm">
@@ -41,7 +41,7 @@ const Header = async () => {
             </>
           ) : (
             <>
-              <Link href={"/login"} className="hover:text-black">
+              <Link href={"/account"} className="hover:text-black">
                 Hello, {session?.user?.name}
               </Link>
               <Lagout />
