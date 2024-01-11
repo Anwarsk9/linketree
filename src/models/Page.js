@@ -1,3 +1,4 @@
+// "use server";
 import mongoose, { Schema, model, models } from "mongoose";
 
 const main = async () => {
