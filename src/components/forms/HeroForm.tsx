@@ -3,7 +3,7 @@
 import { signIn } from "next-auth/react";
 
 const HeroForm = () => {
-  const formdata = async (event: Event) => {
+  const formdata = async (event: any) => {
     event.preventDefault();
     const form = event.target;
     const input = form?.querySelector("input") as HTMLFormElement;
