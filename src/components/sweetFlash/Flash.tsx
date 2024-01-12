@@ -6,6 +6,7 @@ export const Flash = (result: string, message?: string) => {
       icon: "success",
       title: `Success`,
       text: message,
+      timer: 1000,
     });
   } else if (result === "error") {
     Swal.fire({

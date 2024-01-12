@@ -21,7 +21,6 @@ const PageSchema = new Schema(
     owner: {
       type: String,
       required: true,
-      unique: true,
     },
   },
   { timestamps: true }

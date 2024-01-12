@@ -17,12 +17,7 @@ const Account = async (req: Request) => {
   const { user } = session;
   return (
     <>
-      <div>
-        <h1 className="text-4xl font-bold text-center mb-4">
-          Grab your username
-        </h1>
-        <p className="text-gray-500 text-center mb-10">Choose your username</p>
-      </div>
+      
       <AccountBtn user={username ? username : user?.name} />
     </>
   );
