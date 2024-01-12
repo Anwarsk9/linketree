@@ -7,15 +7,27 @@ import { useState } from "react";
 
 const AccountBtn = ({ user }: { user: string }) => {
   let [takenUsernameError, setTakenUsernameError] = useState(false);
+  let [nameError, setNameError] = useState(false);
+  let [name, setName] = useState("");
 
   const addUsername = async (formData: any) => {
     const username = await AccountFormData(formData);
-    if (!username) {
+    if (username === false) {
       setTakenUsernameError(true);
       Flash("error", "username is taken!");
-    } else {
+    } else if (username === true) {
       setTakenUsernameError(false);
       Flash("success", "User Created Successfully!");
+    } else {
+      setTakenUsernameError(false);
+    }
+  };
+
+  const checkNameLegth = () => {
+    if (name.length > 3) {
+      setNameError(false);
+    } else {
+      setNameError(true);
     }
   };
 
@@ -23,6 +35,7 @@ const AccountBtn = ({ user }: { user: string }) => {
     <div className="flex justify-center">
       <form action={addUsername} className="w-[85%] flex flex-col items-center">
         <input
+          onChange={(event: any) => setName(event.target.value)}
           name="username"
           className="w-1/2 p-2 mb-2 text-center outline-blue-500 shadow-lg"
           type="text"
@@ -36,7 +49,17 @@ const AccountBtn = ({ user }: { user: string }) => {
         ) : (
           ""
         )}
-        <button className="w-1/2 flex justify-center items-center gap-2 text-white bg-blue-600 border py-2 px-4 shadow-lg">
+        {nameError ? (
+          <p className="p-2 w-fit text-red-600 mt-[-13px]">
+            name Must be more then 3 Charecters!
+          </p>
+        ) : (
+          ""
+        )}
+        <button
+          onClick={checkNameLegth}
+          className="w-1/2 flex justify-center items-center gap-2 text-white bg-blue-600 border py-2 px-4 shadow-lg"
+        >
           <span>Claim Your Username</span>
           <FontAwesomeIcon icon={faArrowRight} className="w-5" />
         </button>

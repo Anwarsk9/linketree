@@ -16,7 +16,7 @@ const PageSchema = new Schema(
       type: String,
       unique: true,
       required: true,
-      min: 1,
+      min: 3,
     },
   },
   { timestamps: true }

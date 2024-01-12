@@ -12,7 +12,7 @@ export const Flash = (result: string, message?: string) => {
       icon: "error",
       title: `Oops...`,
       text: message,
-      footer: '<a href="/about">Why do I have this issue?</a>',
+      // footer: '<a href="/about">Why do I have this issue?</a>',
     });
   }
 };
