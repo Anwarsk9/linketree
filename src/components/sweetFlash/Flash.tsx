@@ -2,7 +2,7 @@ import Swal from "sweetalert2";
 
 export const Flash = (result: string, message?: string) => {
   if (result === "success") {
-    return  Swal.fire({
+    Swal.fire({
       icon: "success",
       title: `Success`,
       text: message,

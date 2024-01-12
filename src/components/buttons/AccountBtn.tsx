@@ -4,11 +4,12 @@ import { faArrowRight } from "@fortawesome/free-solid-svg-icons";
 import { Flash } from "@/components/sweetFlash/Flash";
 import AccountFormData from "../forms/AccountFormData";
 import { useState } from "react";
+import { redirect } from "next/navigation";
 
 const AccountBtn = ({ user }: { user: string }) => {
   let [takenUsernameError, setTakenUsernameError] = useState(false);
   let [nameError, setNameError] = useState(false);
-  let [name, setName] = useState("");
+  let [name, setName] = useState(user);
 
   const addUsername = async (formData: any) => {
     const username = await AccountFormData(formData);
@@ -18,6 +19,7 @@ const AccountBtn = ({ user }: { user: string }) => {
     } else if (username === true) {
       setTakenUsernameError(false);
       Flash("success", "User Created Successfully!");
+      return redirect(`/account/${name}`);
     } else {
       setTakenUsernameError(false);
     }
@@ -51,7 +53,7 @@ const AccountBtn = ({ user }: { user: string }) => {
         )}
         {nameError ? (
           <p className="p-2 w-fit text-red-600 mt-[-13px]">
-            name Must be more then 3 Charecters!
+            Name must be more then 3 Charecters!
           </p>
         ) : (
           ""

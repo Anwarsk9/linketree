@@ -18,6 +18,11 @@ const PageSchema = new Schema(
       required: true,
       min: 3,
     },
+    owner: {
+      type: String,
+      required: true,
+      unique: true,
+    },
   },
   { timestamps: true }
 );
