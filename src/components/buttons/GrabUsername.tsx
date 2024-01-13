@@ -6,7 +6,7 @@ import AccountFormData from "../forms/AccountFormData";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 
-const AccountBtn = ({ user }: { user: string }) => {
+const GrabUsername = ({ user }: { user: string }) => {
   let [takenUsernameError, setTakenUsernameError] = useState(false);
   let [nameError, setNameError] = useState(false);
   let [name, setName] = useState(user);
@@ -83,4 +83,4 @@ const AccountBtn = ({ user }: { user: string }) => {
   );
 };
 
-export default AccountBtn;
+export default GrabUsername;
