@@ -23,7 +23,7 @@ const AccountSignoutBtns = () => {
           (pathname === "/account" ? "text-blue-400 !opacity-100" : "")
         }
       >
-        <FontAwesomeIcon icon={faFileLines} className="w-4" />
+        <FontAwesomeIcon icon={faFileLines} className="w-4 h-5" />
         <span>My Page</span>
       </Link>
       <Link

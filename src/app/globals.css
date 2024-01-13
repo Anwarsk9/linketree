@@ -2,6 +2,27 @@
 @tailwind components;
 @tailwind utilities;
 
-body{
-    background-color: #e0e0e0;
+body {
+  background-color: #e0e0e0;
+}
+
+.page-input {
+  @apply p-2 border bg-gray-300 outline-blue-400 placeholder:text-sm;
+}
+.page-input ~ label {
+  @apply uppercase text-sm;
+}
+.radio-togglers span {
+  @apply bg-gray-200 p-2;
+}
+
+.radio-togglers input[type="radio"] {
+  @apply hidden;
+}
+
+.radio-togglers input[type="radio"]:checked ~ span {
+  @apply bg-white text-blue-500;
+}
+.radio-togglers input[type="radio"]:checked ~ span > span {
+  @apply bg-white;
 }

@@ -2,7 +2,7 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowRight } from "@fortawesome/free-solid-svg-icons";
 import { Flash } from "@/components/sweetFlash/Flash";
-import AccountFormData from "../forms/AccountFormData";
+import AccountFormData from "../../actions/AccountFormData";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 

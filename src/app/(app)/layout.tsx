@@ -5,7 +5,6 @@ import { getServerSession } from "next-auth";
 import { authOptions } from "../api/auth/[...nextauth]/route";
 import { redirect } from "next/navigation";
 import AsideBar from "@/components/account/AsideBar";
-import { headers } from "next/headers";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -32,7 +31,7 @@ export default async function RootLayout({
           <aside className="bg-white w-64 h-screen p-4 shadow-2xl">
             <AsideBar imgSrc={session?.user?.image} />
           </aside>
-          <div className="max-w-4xl mx-auto p-8">{children}</div>
+          <div className="max-w-4xl w-full p-6">{children}</div>
         </main>
       </body>
     </html>

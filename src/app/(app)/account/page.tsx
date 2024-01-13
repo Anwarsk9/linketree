@@ -3,6 +3,7 @@ import { authOptions } from "../../api/auth/[...nextauth]/route";
 import { redirect } from "next/navigation";
 import { Page } from "@/models/Page";
 import GrabUsername from "@/components/buttons/GrabUsername";
+import PageSettingsForm from "@/components/forms/PageSettingsForm";
 
 interface Request {
   params: object;
@@ -18,7 +19,11 @@ const Account = async (req: Request) => {
   const { user } = isLoggedIn;
   const isGrabedUserName = await Page.findOne({ owner: user?.email });
   if (isGrabedUserName) {
-    return <div>your page is / {isGrabedUserName?.uri}</div>;
+    return (
+      <div>
+        <PageSettingsForm page={isGrabedUserName} session={isLoggedIn} />
+      </div>
+    );
   }
 
   return (

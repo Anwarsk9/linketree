@@ -22,6 +22,12 @@ const PageSchema = new Schema(
       type: String,
       required: true,
     },
+    displayname: {
+      type: String,
+      default: "",
+    },
+    location: { type: String, default: "" },
+    bio: { type: String, default: "" },
   },
   { timestamps: true }
 );
