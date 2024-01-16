@@ -96,7 +96,7 @@ const PageSettingsForm = ({
     }
   };
   const loading = () => {
-   toast.loading("Loading...", { id: "loading" });
+    toast.loading("Loading...", { id: "loading" });
   };
 
   return (
@@ -153,24 +153,31 @@ const PageSettingsForm = ({
           </div>
         </div>
         <div>
-          <div className="flex justify-center mb-12 -mt-16 h-32">
-            <div>
-              <Image
-                src={profileImg.url ? profileImg.url : session?.user?.image}
-                width={150}
-                height={150}
-                alt="Profile Image"
-                className="rounded-full shadow-black/50 shadow border-4 border-white"
-              />
-              <label
-                htmlFor="profile-pic"
-                className="flex justify-end w-fit relative ml-24 -mt-12 rounded-full shadow shadow-black/50  bg-white hover:cursor-pointer"
+          <div className="flex justify-center h-24">
+            <div className="relative -top-16 w-[170px] h-[170px] ">
+              <div
+                className="overflow-hidden h-full rounded-full border-4
+               border-white shadow shadow-black/50"
               >
-                <span className="flex justify-center items-center gap-1 bg-white p-2 rounded-full">
-                  <FontAwesomeIcon icon={faCloudArrowUp} className="h-6" />
-                  {profileImgName ? <span>{profileImgName}</span> : ""}
-                </span>
-              </label>
+                <Image
+                  src={profileImg.url ? profileImg.url : session?.user?.image}
+                  width={150}
+                  height={150}
+                  alt="Profile Image"
+                  className="w-full h-full object-cover"
+                />
+              </div>
+              <div className="flex justify-center items-center">
+                <label
+                  htmlFor="profile-pic"
+                  className="flex justify-end relative rounded-full ml-24 -mt-12 shadow shadow-black/50  bg-white hover:cursor-pointer"
+                >
+                  <span className="flex justify-center items-center gap-1 bg-white p-2 rounded-full">
+                    <FontAwesomeIcon icon={faCloudArrowUp} className="h-6" />
+                    {profileImgName ? <span>{profileImgName}</span> : ""}
+                  </span>
+                </label>
+              </div>
               <input
                 type="file"
                 onChange={handleProfileImgName}

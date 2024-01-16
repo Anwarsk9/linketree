@@ -28,10 +28,10 @@ export default async function RootLayout({
     <html lang="en">
       <body className={inter.className}>
         <main className="flex">
-          <aside className="bg-white w-64 h-screen p-4 shadow-2xl">
+          <aside className="bg-white w-64 p-4 shadow-2xl">
             <AsideBar imgSrc={session?.user?.image} />
           </aside>
-          <div className="w-full p-6">{children}</div>
+          <div className="w-full h-full p-6">{children}</div>
         </main>
       </body>
     </html>
