@@ -17,20 +17,22 @@ const Account = async (req: Request) => {
     return redirect("/");
   }
   const { user } = isLoggedIn;
-  const isGrabedUserName = await Page.findOne({ owner: user?.email });
+  const isGrabedUserName = await Page.findOne({ owner: user?.email })
+    .populate("bg_image")
+    .populate("profile_image");
   if (isGrabedUserName) {
     return (
       <div>
         <PageSettingsForm page={isGrabedUserName} session={isLoggedIn} />
       </div>
     );
+  } else {
+    return (
+      <>
+        <GrabUsername user={username ? username : user?.name} />
+      </>
+    );
   }
-
-  return (
-    <>
-      <GrabUsername user={username ? username : user?.name} />
-    </>
-  );
 };
 
 export default Account;

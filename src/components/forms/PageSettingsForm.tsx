@@ -8,48 +8,175 @@ import {
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Image from "next/image";
 import PageSettingsAction from "@/actions/PageSettingsAction";
+import LoadingBtn from "../buttons/LoadingBtn";
+import toast, { Toaster } from "react-hot-toast";
+import RadioTogglers from "../buttons/RadioTogglers";
+import { useState } from "react";
+import ImgUploadToCloudinary from "@/actions/ImgUploadToCloudinary";
+import { faCloudArrowUp } from "@fortawesome/free-solid-svg-icons/faCloudArrowUp";
+
+interface PageProps {
+  displayname: string;
+  location: string;
+  bio: string;
+  bgType: string;
+  bgColor: string;
+  bg_image: { url: string; public_id: string };
+  profile_image: { url: string; public_id: string };
+}
 
 const PageSettingsForm = ({
   page,
   session,
 }: {
-  page: object;
+  page: PageProps;
   session: { user: { image: string } };
 }) => {
-  const saveBaseSettings = (formData: any) => {
-    let data = PageSettingsAction(formData, page?.uri);
+  const [bgType, setBgType] = useState(page?.bgType);
+  const [bgColor, setBgColor] = useState(page?.bgColor);
+  const [bgImgName, setBgImgName] = useState("");
+  const [profileImgName, setProfileImgName] = useState("");
+  const [bgImg, setBgImg] = useState({
+    url: page?.bg_image.url,
+    public_id: page.bg_image.public_id,
+  });
+  const [profileImg, setProfileImg] = useState({
+    url: page?.profile_image.url,
+    public_id: page.profile_image.public_id,
+  });
+
+  const saveBaseSettings = async (formData: any) => {
+    // to check ,if user uploaded file then only save the file.
+    if (bgImgName || profileImgName) {
+      await ImgUploadToCloudinary(
+        formData,
+        bgImg.public_id,
+        profileImg.public_id
+      ).then(async (imgUrl) => {
+        imgUrl.map((url) => {
+          if (url.bg_url) {
+            setBgImg({
+              url: url?.bg_url,
+              public_id: url.bg_public_id,
+            });
+          } else if (url.profile_url) {
+            setProfileImg({
+              url: url?.profile_url,
+              public_id: url.profile_public_id,
+            });
+          }
+        });
+        await PageSettingsAction(formData, imgUrl).then((result) => {
+          if (result) {
+            toast.success("Success!", { id: "loading" });
+            setBgImgName("");
+            setProfileImgName("");
+          }
+        });
+      });
+    } else {
+      await PageSettingsAction(formData).then((result) => {
+        if (result) {
+          toast.success("Success!", { id: "loading" });
+        }
+      });
+    }
+  };
+
+  const handleImgName = (event: any) => {
+    if (event.target.files) {
+      setBgImgName(event.target.files[0].name);
+    }
+  };
+  const handleProfileImgName = (event: any) => {
+    console.log(event.target.files.length);
+    if (event.target.files.length) {
+      let name = event.target.files[0].name;
+      setProfileImgName(name.slice(0, 10) + "...");
+    }
+  };
+  const loading = () => {
+   toast.loading("Loading...", { id: "loading" });
   };
 
   return (
     <>
-      <form action={saveBaseSettings} className="flex flex-col bg-white w-full">
-        <div className="radio-togglers h-36 flex  justify-center items-center bg-gray-300">
-          <div className="p-2 py-3 bg-gray-200">
-            <label>
-              <input type="radio" name="imgOrColor" />
-              <span>
-                <FontAwesomeIcon icon={faPalette} className="w-4" />
-                <span>Color</span>
-              </span>
-            </label>
-            <label>
-              <input type="radio" name="imgOrColor" />
-              <span>
-                <FontAwesomeIcon icon={faImage} className="w-4" />
-                <span>Image</span>
-              </span>
-            </label>
+      <form
+        action={saveBaseSettings}
+        onSubmit={loading}
+        className="flex flex-col bg-white w-full"
+      >
+        <div
+          className={
+            "h-[300px] flex flex-col justify-center items-center bg-cover bg-center"
+          }
+          style={
+            bgType === "color"
+              ? { backgroundColor: bgColor }
+              : { backgroundImage: `url(${bgImg.url})` }
+          }
+        >
+          <RadioTogglers
+            defaultChecked={bgType}
+            onChange={(val) => setBgType(val)}
+            options={[
+              { value: "color", icon: faPalette, label: "Color" },
+              { value: "image", icon: faImage, label: "Image" },
+            ]}
+          />
+          <div className="mt-3 p-2 rounded bg-gray-200 text-gray-600">
+            {bgType === "color" ? (
+              <label className="flex justify-center gap-2 hover:cursor-pointer hover:text-gray-700">
+                <span>Background Color: </span>
+                <input
+                  type="color"
+                  name="bgColor"
+                  defaultValue={bgColor}
+                  onChange={(event) => setBgColor(event?.target?.value)}
+                />
+              </label>
+            ) : (
+              <label className="flex justify-center hover:cursor-pointer hover:text-black ">
+                <span>
+                  {" "}
+                  <FontAwesomeIcon icon={faCloudArrowUp} className="w-5" />{" "}
+                  {bgImgName ? bgImgName : "Change Image"}
+                </span>
+                <input
+                  type="file"
+                  name="image"
+                  className="hidden"
+                  onChange={handleImgName}
+                />
+              </label>
+            )}
           </div>
         </div>
         <div>
-          <div className="flex justify-center -mt-8 h-32">
+          <div className="flex justify-center mb-12 -mt-16 h-32">
             <div>
               <Image
-                src={session?.user?.image}
-                width={"80"}
-                height={"80"}
+                src={profileImg.url ? profileImg.url : session?.user?.image}
+                width={150}
+                height={150}
                 alt="Profile Image"
-                className="rounded-full border-4 border-white"
+                className="rounded-full shadow-black/50 shadow border-4 border-white"
+              />
+              <label
+                htmlFor="profile-pic"
+                className="flex justify-end w-fit relative ml-24 -mt-12 rounded-full shadow shadow-black/50  bg-white hover:cursor-pointer"
+              >
+                <span className="flex justify-center items-center gap-1 bg-white p-2 rounded-full">
+                  <FontAwesomeIcon icon={faCloudArrowUp} className="h-6" />
+                  {profileImgName ? <span>{profileImgName}</span> : ""}
+                </span>
+              </label>
+              <input
+                type="file"
+                onChange={handleProfileImgName}
+                name="profile_pic"
+                className="hidden"
+                id="profile-pic"
               />
             </div>
           </div>
@@ -61,7 +188,7 @@ const PageSettingsForm = ({
               className="page-input"
               name="displayname"
               id="username"
-              defaultValue={page?.uri}
+              defaultValue={page?.displayname}
             />
             <label htmlFor="location">location</label>
             <input
@@ -82,10 +209,11 @@ const PageSettingsForm = ({
             />
           </div>
           <div className="w-full flex justify-center items-center my-5">
-            <button className="flex items-center gap-2 p-2 rounded bg-blue-500 text-white">
+            <LoadingBtn className="flex items-center justify-center gap-2 p-2 w-1/4 rounded bg-blue-500 text-white">
               <FontAwesomeIcon icon={faFloppyDisk} className="w-4 h-5" />
               <span>Save</span>
-            </button>
+            </LoadingBtn>
+            <Toaster position="top-center" />
           </div>
         </div>
       </form>

@@ -31,7 +31,7 @@ export default async function RootLayout({
           <aside className="bg-white w-64 h-screen p-4 shadow-2xl">
             <AsideBar imgSrc={session?.user?.image} />
           </aside>
-          <div className="max-w-4xl w-full p-6">{children}</div>
+          <div className="w-full p-6">{children}</div>
         </main>
       </body>
     </html>

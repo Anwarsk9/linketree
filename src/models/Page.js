@@ -28,6 +28,17 @@ const PageSchema = new Schema(
     },
     location: { type: String, default: "" },
     bio: { type: String, default: "" },
+    bgType: { type: String, default: "color" },
+    bgColor: { type: String, default: "#000" },
+
+    bg_image: {
+      url: { type: String, default: "" },
+      public_id: { type: String, default: "" },
+    },
+    profile_image: {
+      url: { type: String, default: "" },
+      public_id: { type: String, default: "" },
+    },
   },
   { timestamps: true }
 );
