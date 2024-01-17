@@ -1,11 +1,11 @@
 import { useFormStatus } from "react-dom";
-
+import { ReactNode } from "react";
 const LoadingBtn = ({
   children,
   className,
 }: {
   children: ReactNode;
-  className: string;
+  className?: string;
 }) => {
   const { pending } = useFormStatus();
 

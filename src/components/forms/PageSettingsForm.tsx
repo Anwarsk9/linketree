@@ -7,7 +7,7 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Image from "next/image";
-import PageSettingsAction from "@/actions/PageSettingsAction";
+import { saveBaseFormChangesToDB } from "@/actions/PageSettingsAction";
 import LoadingBtn from "../buttons/LoadingBtn";
 import toast, { Toaster } from "react-hot-toast";
 import RadioTogglers from "../buttons/RadioTogglers";
@@ -66,7 +66,7 @@ const PageSettingsForm = ({
             });
           }
         });
-        await PageSettingsAction(formData, imgUrl).then((result) => {
+        await saveBaseFormChangesToDB(formData, imgUrl).then((result) => {
           if (result) {
             toast.success("Success!", { id: "loading" });
             setBgImgName("");
@@ -75,7 +75,7 @@ const PageSettingsForm = ({
         });
       });
     } else {
-      await PageSettingsAction(formData).then((result) => {
+      await saveBaseFormChangesToDB(formData).then((result) => {
         if (result) {
           toast.success("Success!", { id: "loading" });
         }

@@ -4,7 +4,7 @@ import { redirect } from "next/navigation";
 import { Page } from "@/models/Page";
 import GrabUsername from "@/components/buttons/GrabUsername";
 import PageSettingsForm from "@/components/forms/PageSettingsForm";
-import AddSocialMediaLinksFrom from "@/components/forms/AddSocialMediaLinksFrom";
+import AddSocialMediaLinksForm from "@/components/forms/AddSocialMediaLinksFrom";
 
 interface Request {
   params: object;
@@ -25,7 +25,7 @@ const Account = async (req: Request) => {
     return (
       <div>
         <PageSettingsForm page={isGrabedUserName} session={isLoggedIn} />
-        <AddSocialMediaLinksFrom />
+        <AddSocialMediaLinksForm socialMedia_Links={isGrabedUserName.socialMedia_Links} />
       </div>
     );
   } else {

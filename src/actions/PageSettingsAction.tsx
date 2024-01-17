@@ -3,7 +3,17 @@ import { authOptions } from "@/app/api/auth/[...nextauth]/route";
 import { Page } from "@/models/Page";
 import { getServerSession } from "next-auth";
 
-const PageSettingsAction = async (formData?: any, images?: object[]) => {
+interface Images {
+  bg_url: string;
+  bg_public_id: string;
+  profile_url: string;
+  profile_public_id: string;
+}
+
+export const saveBaseFormChangesToDB = async (
+  formData?: any,
+  images?: Images[]
+) => {
   if (formData) {
     let displayname = formData.get("displayname");
     let location = formData.get("location");
@@ -71,4 +81,20 @@ const PageSettingsAction = async (formData?: any, images?: object[]) => {
   }
 };
 
-export default PageSettingsAction;
+export const saveSocialMediaOptionsToDB = async (formData: object[]) => {
+  const session = await getServerSession(authOptions);
+  if (session) {
+    const optionValues = {};
+    formData.forEach((value, key) => {
+      optionValues[key] = value;
+    });
+    if (Object.keys(optionValues).length !== 0)
+      await Page.findOneAndUpdate(
+        { owner: session?.user?.email },
+        { socialMedia_Links: optionValues },
+        { new: true }
+      );
+    return true;
+  }
+  return false;
+};

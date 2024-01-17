@@ -1,4 +1,5 @@
 "use client";
+import { saveSocialMediaOptionsToDB } from "@/actions/PageSettingsAction";
 import {
   faDiscord,
   faFacebook,
@@ -8,11 +9,24 @@ import {
   faTiktok,
   faWhatsapp,
 } from "@fortawesome/free-brands-svg-icons";
-import { faEnvelope, faMobile } from "@fortawesome/free-solid-svg-icons";
+import {
+  faEnvelope,
+  faMobile,
+  faSave,
+} from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React, { useState } from "react";
+import LoadingBtn from "../buttons/LoadingBtn";
+import toast from "react-hot-toast";
 
-const socialMediaOptions = [
+interface SocialMediaOption {
+  key: string;
+  label: string;
+  icon: any;
+  placeholder: string;
+}
+
+const socialMediaOptions: SocialMediaOption[] = [
   {
     key: "email",
     label: "E-mail",
@@ -69,11 +83,16 @@ const socialMediaOptions = [
   },
 ];
 
-const AddSocialMediaLinksFrom = () => {
-  const [activeButton, setActiveButton] = useState([]);
+const AddSocialMediaLinksForm = ({
+  socialMedia_Links,
+}: {
+  socialMedia_Links: object;
+}) => {
+
+  const [activeButton, setActiveButton] = useState<SocialMediaOption[]>([]);
 
   const addButtonToProfile = (button: object) => {
-    setActiveButton((prevButton) => {
+    setActiveButton((prevButton: any) => {
       return [...prevButton, button];
     });
   };
@@ -84,19 +103,34 @@ const AddSocialMediaLinksFrom = () => {
     );
   });
 
+  const handleAction = async (formData: any) => {
+    await saveSocialMediaOptionsToDB(formData).then((result) => {
+      if (result) {
+        toast.success("SAved!");
+      }
+    });
+  };
+
   return (
     <div className="p-2 bg-white mt-4">
       <h2 className="mb-3 text-xl font-bold">Add Social Media Links:</h2>
-      <form action="#">
+      <form action={handleAction}>
         {activeButton
           ? activeButton.map((b) => (
               <div className="flex mb-4">
-                <div className="flex  items-center gap-2 bg-gray-400 p-2 pr-0 w-28" >
-                    <FontAwesomeIcon icon={b.icon} />
-                    <span>{b.label}</span>
+                <div className="flex  items-center gap-2 bg-gray-400 p-2 pr-0 w-28">
+                  <FontAwesomeIcon icon={b.icon} />
+                  <span>{b.label}</span>
                 </div>
-                <input type="text" placeholder={b.placeholder}
-                className="bg-gray-300 grow p-2 outline-blue-400" />
+                <input
+                  type="text"
+                  name={b.key}
+                  placeholder={b.placeholder}
+                  defaultValue={
+                    socialMedia_Links ? socialMedia_Links[b.key] : ""
+                  }
+                  className="bg-gray-300 grow p-2 outline-blue-400"
+                />
               </div>
             ))
           : ""}
@@ -115,9 +149,15 @@ const AddSocialMediaLinksFrom = () => {
             </div>
           ))}
         </div>
+        <div className="flex justify-center mt-5">
+          <LoadingBtn className=" text-white bg-blue-600 flex items-center justify-center gap-2 p-2 rounded w-1/4">
+            <FontAwesomeIcon icon={faSave} />
+            <span>Save</span>
+          </LoadingBtn>
+        </div>
       </form>
     </div>
   );
 };
 
-export default AddSocialMediaLinksFrom;
+export default AddSocialMediaLinksForm;
