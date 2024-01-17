@@ -11,13 +11,16 @@ import {
 } from "@fortawesome/free-brands-svg-icons";
 import {
   faEnvelope,
+  faGripLines,
   faMobile,
   faSave,
+  faTrash,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React, { useState } from "react";
 import LoadingBtn from "../buttons/LoadingBtn";
 import toast from "react-hot-toast";
+import { ReactSortable } from "react-sortablejs";
 
 interface SocialMediaOption {
   key: string;
@@ -67,7 +70,7 @@ const socialMediaOptions: SocialMediaOption[] = [
     key: "whatsapp",
     label: "Whatsapp",
     icon: faWhatsapp,
-    placeholder: "https://whatsapp.com/account...",
+    placeholder: "whatsapp number.",
   },
   {
     key: "tiktok",
@@ -88,8 +91,12 @@ const AddSocialMediaLinksForm = ({
 }: {
   socialMedia_Links: object;
 }) => {
-
-  const [activeButton, setActiveButton] = useState<SocialMediaOption[]>([]);
+  const buttonsToProfile = Object.keys(socialMedia_Links);
+  const activeButtons = socialMediaOptions.filter((btn1) => {
+    return buttonsToProfile.some((btn2) => btn2 === btn1.key);
+  });
+  const [activeButton, setActiveButton] =
+    useState<SocialMediaOption[]>(activeButtons);
 
   const addButtonToProfile = (button: object) => {
     setActiveButton((prevButton: any) => {
@@ -97,45 +104,69 @@ const AddSocialMediaLinksForm = ({
     });
   };
 
-  const notActiveSocialMediaBtn = socialMediaOptions.filter((option) => {
-    return !activeButton.find(
-      (activeOption) => option.key === activeOption.key
-    );
-  });
-
   const handleAction = async (formData: any) => {
-    await saveSocialMediaOptionsToDB(formData).then((result) => {
+    const saveData = {};
+    formData.forEach((value: string, key: string) => {
+      if (value) {
+        saveData[key] = value;
+      }
+    });
+    await saveSocialMediaOptionsToDB(saveData).then((result) => {
       if (result) {
-        toast.success("SAved!");
+        toast.success("Saved!", { id: "loading" });
+      } else {
+        toast.error("Error!", { id: "loading" });
       }
     });
   };
 
+  const handleDelete = (btn: SocialMediaOption) => {
+    const addBtn = activeButton.filter((el) => el.key !== btn.key);
+    setActiveButton(addBtn);
+  };
+
+  const notActiveBtns = socialMediaOptions.filter((btn1) => {
+    return activeButton.every((btn2) => btn2.key !== btn1.key);
+  });
+
   return (
     <div className="p-2 bg-white mt-4">
       <h2 className="mb-3 text-xl font-bold">Add Social Media Links:</h2>
-      <form action={handleAction}>
-        {activeButton
-          ? activeButton.map((b) => (
-              <div className="flex mb-4">
-                <div className="flex  items-center gap-2 bg-gray-400 p-2 pr-0 w-28">
-                  <FontAwesomeIcon icon={b.icon} />
-                  <span>{b.label}</span>
+      <form
+        action={handleAction}
+        onSubmit={() => toast.loading("loading...", { id: "loading" })}
+      >
+        <ReactSortable list={activeButton} setList={setActiveButton}>
+          {activeButton
+            ? activeButton.map((b) => (
+                <div className="flex mb-4">
+                  <div className="flex  items-center gap-2 bg-gray-400 w-36">
+                    <FontAwesomeIcon
+                      icon={faGripLines}
+                      className="h-4 p-2 pr-0 hover:cursor-grab"
+                    />
+                    <FontAwesomeIcon icon={b.icon} className="h-5" />
+                    <span>{b.label}</span>
+                  </div>
+                  <input
+                    type="text"
+                    name={b.key}
+                    placeholder={b.placeholder}
+                    defaultValue={socialMedia_Links[b.key]}
+                    className="bg-gray-300 grow p-2 outline-blue-400"
+                  />
+                  <label
+                    onClick={() => handleDelete(b)}
+                    className="p-4 bg-gray-400 hover:cursor-grab"
+                  >
+                    <FontAwesomeIcon icon={faTrash} />
+                  </label>
                 </div>
-                <input
-                  type="text"
-                  name={b.key}
-                  placeholder={b.placeholder}
-                  defaultValue={
-                    socialMedia_Links ? socialMedia_Links[b.key] : ""
-                  }
-                  className="bg-gray-300 grow p-2 outline-blue-400"
-                />
-              </div>
-            ))
-          : ""}
+              ))
+            : ""}
+        </ReactSortable>
         <div className="flex flex-wrap">
-          {notActiveSocialMediaBtn.map((mediaOption) => (
+          {notActiveBtns.map((mediaOption) => (
             <div className="p-1">
               <button
                 onClick={() => addButtonToProfile(mediaOption)}
@@ -151,7 +182,7 @@ const AddSocialMediaLinksForm = ({
         </div>
         <div className="flex justify-center mt-5">
           <LoadingBtn className=" text-white bg-blue-600 flex items-center justify-center gap-2 p-2 rounded w-1/4">
-            <FontAwesomeIcon icon={faSave} />
+            <FontAwesomeIcon icon={faSave} className="w-5" />
             <span>Save</span>
           </LoadingBtn>
         </div>
