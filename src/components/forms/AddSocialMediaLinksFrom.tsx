@@ -105,7 +105,7 @@ const AddSocialMediaLinksForm = ({
   };
 
   const handleAction = async (formData: any) => {
-    const saveData = {};
+    const saveData:object = {};
     formData.forEach((value: string, key: string) => {
       if (value) {
         saveData[key] = value;
@@ -131,7 +131,7 @@ const AddSocialMediaLinksForm = ({
 
   return (
     <div className="p-2 bg-white mt-4">
-      <h2 className="mb-3 text-xl font-bold">Add Social Media Links:</h2>
+      <h2 className="mb-3 text-xl font-semibold">Add Social Media Links:</h2>
       <form
         action={handleAction}
         onSubmit={() => toast.loading("loading...", { id: "loading" })}
@@ -140,10 +140,10 @@ const AddSocialMediaLinksForm = ({
           {activeButton
             ? activeButton.map((b) => (
                 <div className="flex mb-4">
-                  <div className="flex  items-center gap-2 bg-gray-400 w-36">
+                  <div className="flex  items-center gap-2 bg-gray-400 text-gray-700 w-36">
                     <FontAwesomeIcon
                       icon={faGripLines}
-                      className="h-4 p-2 pr-0 hover:cursor-grab"
+                      className="h-4 p-2 pr-0 hover:cursor-grab text-black"
                     />
                     <FontAwesomeIcon icon={b.icon} className="h-5" />
                     <span>{b.label}</span>

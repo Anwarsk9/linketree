@@ -5,6 +5,7 @@ import { Page } from "@/models/Page";
 import GrabUsername from "@/components/buttons/GrabUsername";
 import PageSettingsForm from "@/components/forms/PageSettingsForm";
 import AddSocialMediaLinksForm from "@/components/forms/AddSocialMediaLinksFrom";
+import AddPublicLinks from "@/components/forms/AddPublicLinks";
 
 interface Request {
   params: object;
@@ -21,11 +22,15 @@ const Account = async (req: Request) => {
   const isGrabedUserName = await Page.findOne({ owner: user?.email })
     .populate("bg_image")
     .populate("profile_image");
+
   if (isGrabedUserName) {
     return (
       <div>
         <PageSettingsForm page={isGrabedUserName} session={isLoggedIn} />
-        <AddSocialMediaLinksForm socialMedia_Links={isGrabedUserName.socialMedia_Links} />
+        <AddSocialMediaLinksForm
+          socialMedia_Links={isGrabedUserName.socialMedia_Links}
+        />
+        <AddPublicLinks />
       </div>
     );
   } else {

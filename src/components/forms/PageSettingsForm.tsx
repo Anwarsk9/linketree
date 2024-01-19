@@ -187,7 +187,7 @@ const PageSettingsForm = ({
               />
             </div>
           </div>
-          <div className="flex flex-col gap-2 p-2">
+          <div className="flex flex-col p-2">
             <label htmlFor="username">DISPLAY NAME</label>
             <input
               type="text"

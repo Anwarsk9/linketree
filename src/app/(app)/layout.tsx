@@ -5,6 +5,7 @@ import { getServerSession } from "next-auth";
 import { authOptions } from "../api/auth/[...nextauth]/route";
 import { redirect } from "next/navigation";
 import AsideBar from "@/components/account/AsideBar";
+import { Page } from "@/models/Page";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -23,14 +24,23 @@ export default async function RootLayout({
   if (!session) {
     return redirect("/");
   }
+  const isGrabedUserName = await Page.findOne({ owner: session?.user?.email })
+    .populate("bg_image")
+    .populate("profile_image");
 
   return (
     <html lang="en">
       <body className={inter.className}>
         <main className="flex">
-          <aside className="bg-white w-64 p-4 shadow-2xl">
-            <AsideBar imgSrc={session?.user?.image} />
-          </aside>
+          {isGrabedUserName ? (
+            <>
+              <aside className="bg-white w-64 p-4 shadow-2xl">
+                <AsideBar imgSrc={session?.user?.image} />
+              </aside>
+            </>
+          ) : (
+            ""
+          )}
           <div className="w-full h-full p-6">{children}</div>
         </main>
       </body>
