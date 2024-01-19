@@ -30,7 +30,7 @@ const Account = async (req: Request) => {
         <AddSocialMediaLinksForm
           socialMedia_Links={isGrabedUserName.socialMedia_Links}
         />
-        <AddPublicLinks />
+        <AddPublicLinks links = {isGrabedUserName?.links} />
       </div>
     );
   } else {

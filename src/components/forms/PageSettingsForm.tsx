@@ -4,6 +4,7 @@ import {
   faFloppyDisk,
   faImage,
   faPalette,
+  faSave,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Image from "next/image";
@@ -215,12 +216,11 @@ const PageSettingsForm = ({
               defaultValue={page?.bio}
             />
           </div>
-          <div className="w-full flex justify-center items-center my-5">
-            <LoadingBtn className="flex items-center justify-center gap-2 p-2 w-1/4 rounded bg-blue-500 text-white">
-              <FontAwesomeIcon icon={faFloppyDisk} className="w-4 h-5" />
+          <div className="flex justify-center my-5">
+            <LoadingBtn className=" text-white bg-blue-600 flex items-center justify-center gap-2 p-2 rounded w-1/4">
+              <FontAwesomeIcon icon={faSave} className="w-5" />
               <span>Save</span>
             </LoadingBtn>
-            <Toaster position="top-center" />
           </div>
         </div>
       </form>

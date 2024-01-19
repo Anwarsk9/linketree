@@ -39,7 +39,8 @@ const PageSchema = new Schema(
       url: { type: String, default: "" },
       public_id: { type: String, default: "" },
     },
-    socialMedia_Links:{type:Object,default:{}}
+    socialMedia_Links: { type: Object, default: {} },
+    links: { type: Object, default: [] },
   },
   { timestamps: true }
 );
