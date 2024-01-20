@@ -100,3 +100,14 @@ export const saveSocialMediaOptionsToDB = async (formData: object) => {
   }
   return false;
 };
+
+export const saveLinks = async (res: object, data: any) => {
+  console.log(res);
+  console.log(data);
+  const session = await getServerSession(authOptions);
+  if (session) {
+    // await Page.findOneAndUpdate({ owner: session?.user?.email }, { links: {} });
+    return true;
+  }
+  return false;
+};
