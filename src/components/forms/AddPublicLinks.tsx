@@ -6,12 +6,14 @@ import {
   faLink,
   faPlus,
   faSave,
+  faTrash,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useState } from "react";
 import LoadingBtn from "../buttons/LoadingBtn";
 import { ReactSortable } from "react-sortablejs";
 import toast from "react-hot-toast";
+import Image from "next/image";
 import { Cloudinary } from "@/actions/Cloudinary";
 
 interface Links {
@@ -22,8 +24,8 @@ interface Links {
   url: string;
 }
 const AddPublicLinks = ({ links }: { links: { res: [] } }) => {
-  console.log(links.res);
   const [publicLinks, SetPublicLinks] = useState<Links[]>(links.res || []);
+  const [publicId, setPublicId] = useState();
 
   const addNewLink = () => {
     SetPublicLinks((prevValue) => {
@@ -39,7 +41,10 @@ const AddPublicLinks = ({ links }: { links: { res: [] } }) => {
       ];
     });
   };
-  console.log(publicLinks);
+  const removeLink = (rmKey: string) => {
+    const fil = publicLinks.filter((link) => link.key !== rmKey);
+    SetPublicLinks(fil);
+  };
   const previewImages = (file: any, key: string) => {
     const selectedFile = file.target.files[0];
 
@@ -63,6 +68,10 @@ const AddPublicLinks = ({ links }: { links: { res: [] } }) => {
   };
 
   const onSubmit = async (fileData: any) => {
+    if (!publicLinks.length) {
+      console.log("con true");
+      await Cloudinary("", []).then((res) => console.log(res));
+    }
     const keys: any[] = [];
     publicLinks.map((el) => keys.push(el.key));
     const files = [];
@@ -76,23 +85,22 @@ const AddPublicLinks = ({ links }: { links: { res: [] } }) => {
       let subtitle = fileData.get(`subtitle${i}`);
       let url = fileData.get(`url${i}`);
 
-      let icon = links.res
-        ? links.res.length
-          ? links.res[i]?.icon
-          : ""
-        : "";
-
-        let key = publicLinks[i]?.key;
+      let icon = links.res ? (links.res.length ? links.res[i]?.icon : "") : "";
+      console.log(links.res[i]?.icon);
+      let key = publicLinks[i]?.key;
       if (!icon) {
         inpData.push({ key, title, subtitle, url });
-        console.log("con true");
       } else {
         inpData.push({ key, title, subtitle, url, icon });
-        console.log("cond false");
       }
     }
-    console.log(inpData);
-    await Cloudinary(files, inpData).then(() => toast.success("Success!"));
+    await Cloudinary(files, inpData).then((el) =>
+      toast.success("Success!", { id: "loading" })
+    );
+  };
+
+  const loading = () => {
+    toast.loading("Loading...", { id: "loading" });
   };
 
   return (
@@ -107,7 +115,7 @@ const AddPublicLinks = ({ links }: { links: { res: [] } }) => {
           <span className="text-blue-600">Add new</span>
         </div>
       </div>
-      <form action={onSubmit}>
+      <form action={onSubmit} onSubmit={loading}>
         <ReactSortable list={publicLinks} setList={SetPublicLinks}>
           {publicLinks.map((el, index) => (
             <div key={el.key} className="ml-3 mt-10 flex">
@@ -118,12 +126,14 @@ const AddPublicLinks = ({ links }: { links: { res: [] } }) => {
                 />
               </div>
               <div className="w-44 -ml-3">
-                <div className=" w-20 h-20 ml-1 mt-3 flex justify-center items-center rounded-full overflow-hidden bg-gray-400">
+                <div className=" w-20 h-20 ml-1 mt-0 flex justify-center items-center rounded-full overflow-hidden bg-gray-400">
                   {el.icon ? (
-                    <img
+                    <Image
                       src={el.icon}
+                      width={80}
+                      height={80}
                       alt="preview image"
-                      className="w-full h-full"
+                      className="w-full h-full object-cover"
                     />
                   ) : (
                     <FontAwesomeIcon icon={faLink} className="h-5" />
@@ -139,8 +149,15 @@ const AddPublicLinks = ({ links }: { links: { res: [] } }) => {
                     className="hidden"
                   />
                 </label>
+                <div
+                  onClick={() => removeLink(el.key)}
+                  className="mt-1 -ml-7 p-1 border text-gray-600 text-center rounded border-black hover:cursor-pointer"
+                >
+                  <FontAwesomeIcon icon={faTrash} className="mr-3 w-5" />
+                  <span>Remove Link</span>
+                </div>
               </div>
-              <div className="w-full ml-2">
+              <div className="mt-5 w-full ml-4">
                 <input
                   type="text"
                   name={`title${index}`}
@@ -167,7 +184,7 @@ const AddPublicLinks = ({ links }: { links: { res: [] } }) => {
           ))}
         </ReactSortable>
 
-        <div className="flex justify-center mt-5">
+        <div className="flex justify-center mt-10">
           <LoadingBtn className=" text-white bg-blue-600 flex items-center justify-center gap-2 p-2 rounded w-1/4">
             <FontAwesomeIcon icon={faSave} className="w-5" />
             <span>Save</span>

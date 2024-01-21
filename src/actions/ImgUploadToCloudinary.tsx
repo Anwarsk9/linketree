@@ -7,7 +7,7 @@ cloudinary.config({
   api_secret: process.env.CLOUDINARY_API_SECRET,
 });
 
-const ImgUploadToCloudinary = async (
+export const imgUploadToCloudinary = async (
   formData: any,
   public_id?: string,
   public_id_for_profile?: string
@@ -71,4 +71,10 @@ const ImgUploadToCloudinary = async (
   return returnData;
 };
 
-export default ImgUploadToCloudinary;
+export const removeLink = async (public_id: string) => {
+  if (public_id) {
+    await cloudinary.uploader
+      .destroy(public_id)
+      .then((result) => console.log(result));
+  }
+};

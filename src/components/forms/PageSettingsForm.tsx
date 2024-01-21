@@ -13,7 +13,7 @@ import LoadingBtn from "../buttons/LoadingBtn";
 import toast, { Toaster } from "react-hot-toast";
 import RadioTogglers from "../buttons/RadioTogglers";
 import { useState } from "react";
-import ImgUploadToCloudinary from "@/actions/ImgUploadToCloudinary";
+import { imgUploadToCloudinary } from "@/actions/ImgUploadToCloudinary";
 import { faCloudArrowUp } from "@fortawesome/free-solid-svg-icons/faCloudArrowUp";
 
 interface PageProps {
@@ -49,7 +49,7 @@ const PageSettingsForm = ({
   const saveBaseSettings = async (formData: any) => {
     // to check ,if user uploaded file then only save the file.
     if (bgImgName || profileImgName) {
-      await ImgUploadToCloudinary(
+      await imgUploadToCloudinary(
         formData,
         bgImg.public_id,
         profileImg.public_id
@@ -221,6 +221,7 @@ const PageSettingsForm = ({
               <FontAwesomeIcon icon={faSave} className="w-5" />
               <span>Save</span>
             </LoadingBtn>
+            <Toaster />
           </div>
         </div>
       </form>
