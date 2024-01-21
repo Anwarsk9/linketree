@@ -13,11 +13,17 @@ import LoadingBtn from "../buttons/LoadingBtn";
 import { ReactSortable } from "react-sortablejs";
 import toast from "react-hot-toast";
 import { Cloudinary } from "@/actions/Cloudinary";
-import { saveLinks } from "@/actions/PageSettingsAction";
 
-const AddPublicLinks = ({ links }: { links: [] }) => {
-  console.log(links);
-  const [publicLinks, SetPublicLinks] = useState([]);
+interface Links {
+  key: string;
+  title: string;
+  subtitle: string;
+  icon: string;
+  url: string;
+}
+const AddPublicLinks = ({ links }: { links: { res: [] } }) => {
+  console.log(links.res);
+  const [publicLinks, SetPublicLinks] = useState<Links[]>(links.res || []);
 
   const addNewLink = () => {
     SetPublicLinks((prevValue) => {
@@ -33,7 +39,7 @@ const AddPublicLinks = ({ links }: { links: [] }) => {
       ];
     });
   };
-
+  console.log(publicLinks);
   const previewImages = (file: any, key: string) => {
     const selectedFile = file.target.files[0];
 
@@ -56,47 +62,37 @@ const AddPublicLinks = ({ links }: { links: [] }) => {
     }
   };
 
-  const onSubmit = async (fileData) => {
-    const keys = [];
+  const onSubmit = async (fileData: any) => {
+    const keys: any[] = [];
     publicLinks.map((el) => keys.push(el.key));
-    const arr = [];
+    const files = [];
     for (let i = 0; i < keys.length; i++) {
       let isData = fileData.get(keys[i]);
-      arr.push(isData);
+      files.push(isData);
     }
-    console.log(arr);
-    await Cloudinary(arr).then(() => toast.success("Success!"));
-    // const imageResLinks = [];
-    // for (const link of arr) {
-    //   if (link) {
-    //     const formData = new FormData();
-    //     formData.append("file", link);
-    //     //   // "use server"
-    //     formData.append("upload_preset", "c1lpxbnc");
-    //     try {
-    //       const uploadResponse = await fetch(
-    //         "https://api.cloudinary.com/v1_1/dhbj7pdvm/image/upload",
-    //         {
-    //           method: "POST",
-    //           body: formData,
-    //         }
-    //       );
-    //       const { url } = await uploadResponse.json();
-    //       imageResLinks.push(url);
-    //       await saveLinks(imageResLinks).then((res) => console.log(res));
-    //     } catch (err) {
-    //       console.log(err);
-    //     }
-    //   }
-    // }
+    const inpData = [];
+    for (let i in publicLinks) {
+      let title = fileData.get(`title${i}`);
+      let subtitle = fileData.get(`subtitle${i}`);
+      let url = fileData.get(`url${i}`);
 
-    // for(
-    // await ImgUploadToCloudinary(formData).then(async (res) => {
-    //   console.log(publicLinks);
-    //   await saveLinks(res, publicLinks).then((res) =>
-    //     res ? toast.success("Links Saved!") : toast.error("error!")
-    //   );
-    // });
+      let icon = links.res
+        ? links.res.length
+          ? links.res[i]?.icon
+          : ""
+        : "";
+
+        let key = publicLinks[i]?.key;
+      if (!icon) {
+        inpData.push({ key, title, subtitle, url });
+        console.log("con true");
+      } else {
+        inpData.push({ key, title, subtitle, url, icon });
+        console.log("cond false");
+      }
+    }
+    console.log(inpData);
+    await Cloudinary(files, inpData).then(() => toast.success("Success!"));
   };
 
   return (
@@ -113,7 +109,7 @@ const AddPublicLinks = ({ links }: { links: [] }) => {
       </div>
       <form action={onSubmit}>
         <ReactSortable list={publicLinks} setList={SetPublicLinks}>
-          {publicLinks.map((el) => (
+          {publicLinks.map((el, index) => (
             <div key={el.key} className="ml-3 mt-10 flex">
               <div className="flex items-center -ml-2 mr-4 mb-10">
                 <FontAwesomeIcon
@@ -147,21 +143,24 @@ const AddPublicLinks = ({ links }: { links: [] }) => {
               <div className="w-full ml-2">
                 <input
                   type="text"
-                  name="title"
+                  name={`title${index}`}
                   placeholder="title"
                   className="page-input"
+                  defaultValue={el.title}
                 />
                 <input
                   type="text"
-                  name="subtitle"
+                  name={`subtitle${index}`}
                   placeholder="subtitle (optional)"
                   className="page-input"
+                  defaultValue={el.subtitle}
                 />
                 <input
                   type="text"
-                  name="url"
+                  name={`url${index}`}
                   placeholder="url"
                   className="page-input"
+                  defaultValue={el.url}
                 />
               </div>
             </div>
