@@ -11,12 +11,13 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useState } from "react";
 import LoadingBtn from "../buttons/LoadingBtn";
 import { ReactSortable } from "react-sortablejs";
-import ImgUploadToCloudinary from "@/actions/ImgUploadToCloudinary";
-import { saveLinks } from "@/actions/PageSettingsAction";
 import toast from "react-hot-toast";
+import { Cloudinary } from "@/actions/Cloudinary";
+import { saveLinks } from "@/actions/PageSettingsAction";
 
 const AddPublicLinks = ({ links }: { links: [] }) => {
-  const [publicLinks, SetPublicLinks] = useState(links || []);
+  console.log(links);
+  const [publicLinks, SetPublicLinks] = useState([]);
 
   const addNewLink = () => {
     SetPublicLinks((prevValue) => {
@@ -55,13 +56,47 @@ const AddPublicLinks = ({ links }: { links: [] }) => {
     }
   };
 
-  const saveLinksToDB = async (formData: any) => {
-    await ImgUploadToCloudinary(formData).then(async (res) => {
-      console.log(publicLinks);
-      await saveLinks(res, publicLinks).then((res) =>
-        res ? toast.success("Links Saved!") : toast.error("error!")
-      );
-    });
+  const onSubmit = async (fileData) => {
+    const keys = [];
+    publicLinks.map((el) => keys.push(el.key));
+    const arr = [];
+    for (let i = 0; i < keys.length; i++) {
+      let isData = fileData.get(keys[i]);
+      arr.push(isData);
+    }
+    console.log(arr);
+    await Cloudinary(arr).then(() => toast.success("Success!"));
+    // const imageResLinks = [];
+    // for (const link of arr) {
+    //   if (link) {
+    //     const formData = new FormData();
+    //     formData.append("file", link);
+    //     //   // "use server"
+    //     formData.append("upload_preset", "c1lpxbnc");
+    //     try {
+    //       const uploadResponse = await fetch(
+    //         "https://api.cloudinary.com/v1_1/dhbj7pdvm/image/upload",
+    //         {
+    //           method: "POST",
+    //           body: formData,
+    //         }
+    //       );
+    //       const { url } = await uploadResponse.json();
+    //       imageResLinks.push(url);
+    //       await saveLinks(imageResLinks).then((res) => console.log(res));
+    //     } catch (err) {
+    //       console.log(err);
+    //     }
+    //   }
+    // }
+
+    // for(
+    // await ImgUploadToCloudinary(formData).then(async (res) => {
+    //   console.log(publicLinks);
+    //   await saveLinks(res, publicLinks).then((res) =>
+    //     res ? toast.success("Links Saved!") : toast.error("error!")
+    //   );
+    // });
   };
 
   return (
@@ -76,7 +111,7 @@ const AddPublicLinks = ({ links }: { links: [] }) => {
           <span className="text-blue-600">Add new</span>
         </div>
       </div>
-      <form action={saveLinksToDB}>
+      <form action={onSubmit}>
         <ReactSortable list={publicLinks} setList={SetPublicLinks}>
           {publicLinks.map((el) => (
             <div key={el.key} className="ml-3 mt-10 flex">
@@ -104,7 +139,7 @@ const AddPublicLinks = ({ links }: { links: [] }) => {
                   <input
                     type="file"
                     onChange={(ev) => previewImages(ev, el.key)}
-                    name="linkImage"
+                    name={el.key}
                     className="hidden"
                   />
                 </label>

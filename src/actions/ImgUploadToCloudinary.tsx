@@ -68,10 +68,6 @@ const ImgUploadToCloudinary = async (
       await saveToCloudinary(profile_pic);
     returnData.push({ profile_url, profile_public_id });
   }
-  // if (linkeImage.size) {
-  //   const { url, public_id } = await saveToCloudinary(linkeImage);
-  //   returnData.push({ url, public_id });
-  // }
   return returnData;
 };
 
