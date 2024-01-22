@@ -29,9 +29,35 @@ const socialMediaOptions = {
   telegram: faTelegram,
 };
 
+interface Page {
+  uri: string;
+  owner: string;
+  displayname: string;
+  location: string;
+  bio: string;
+  bgType: string;
+  bgColor: string;
+  bg_image: {
+    url: string;
+  };
+  profile_image: {
+    url: string;
+  };
+  socialMedia_Links: object;
+  links: [
+    {
+      key: string;
+      title: string;
+      subtitle: string;
+      url: string;
+      icon: string;
+    }
+  ];
+}
+
 const URI = async ({ params }: { params: { uri: string } }) => {
   const { uri } = params;
-  const page = await Page.findOne({ uri })
+  const page: Page = await Page.findOne({ uri })
     .populate("bg_image")
     .populate("profile_image")
     .lean();
@@ -52,7 +78,7 @@ const URI = async ({ params }: { params: { uri: string } }) => {
         className="w-full h-52  bg-cover bg-center"
         style={
           page.bgType === "color"
-            ? { backgroundColor: page.bg_color }
+            ? { backgroundColor: page.bgColor }
             : {
                 backgroundImage: `url(
             ${page.bg_image.url}
