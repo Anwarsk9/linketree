@@ -5,19 +5,47 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faEnvelope,
   faLink,
-  faLocation,
   faLocationDot,
   faPhone,
 } from "@fortawesome/free-solid-svg-icons";
-import { faFacebook } from "@fortawesome/free-brands-svg-icons";
+import {
+  faFacebook,
+  faGithub,
+  faInstagram,
+  faTelegram,
+  faTiktok,
+  faWhatsapp,
+} from "@fortawesome/free-brands-svg-icons";
 import Link from "next/link";
 
-const URI = async ({ params }: { params: object }) => {
+const socialMediaOptions = {
+  email: faEnvelope,
+  mobile: faPhone,
+  facebook: faFacebook,
+  instagram: faInstagram,
+  github: faGithub,
+  tiktok: faTiktok,
+  whatsapp: faWhatsapp,
+  telegram: faTelegram,
+};
+
+const URI = async ({ params }: { params: { uri: string } }) => {
   const { uri } = params;
   const page = await Page.findOne({ uri })
     .populate("bg_image")
     .populate("profile_image")
     .lean();
+
+  const buttonLink = (btnkey: string, value: string) => {
+    if (btnkey === "mobile") {
+      return "tel: " + value;
+    } else if (btnkey === "email") {
+      return "mailto: " + value;
+    } else {
+      return value;
+    }
+  };
+
   return (
     <div className="bg-blue-950 text-white h-screen">
       <div
@@ -51,22 +79,24 @@ const URI = async ({ params }: { params: object }) => {
         <h3 className="text-lg mt-3">{page.bio}</h3>
       </div>
       <div className="flex justify-center gap-2 mt-5">
-        <div className="uri-icons">
-          <FontAwesomeIcon icon={faPhone} className="w-5" />
-        </div>
-        <div className="uri-icons">
-          <FontAwesomeIcon icon={faFacebook} className="w-5" />
-        </div>
-        <div className="uri-icons">
-          <FontAwesomeIcon icon={faEnvelope} className="w-5" />
-        </div>
+        {Object.keys(page.socialMedia_Links).map((btnkey) => (
+          <Link
+            href={buttonLink(btnkey, page.socialMedia_Links[btnkey])}
+            className="uri-icons"
+          >
+            <FontAwesomeIcon
+              icon={socialMediaOptions[btnkey]}
+              className="w-5"
+            />
+          </Link>
+        ))}
       </div>
       <div className="flex justify-center">
         <div className="max-w-2xl flex flex-wrap gap-10 p-5n">
           {page.links.map((link) => (
             <Link
               href={link.url}
-              className="w-[44%] h-24 flex gap-1 m-5 mr-0 mb-0 rounded bg-blue-700"
+              className="w-[44%] h-24 flex gap-1 m-5 mr-0 mb-0 rounded bg-blue-700 shadow-2xl"
             >
               <div className="relative right-3 top-3">
                 {link.icon ? (
@@ -75,10 +105,10 @@ const URI = async ({ params }: { params: object }) => {
                     alt="links icon"
                     height={70}
                     width={70}
-                    className="rounded"
+                    className="rounded shadow-2xl"
                   />
                 ) : (
-                  <div className="flex justify-center bg-blue-600 h-[70px] w-[70px] rounded">
+                  <div className="flex justify-center bg-blue-600 h-[70px] w-[70px] rounded shadow-2xl">
                     <FontAwesomeIcon icon={faLink} className="w-8" />
                   </div>
                 )}
