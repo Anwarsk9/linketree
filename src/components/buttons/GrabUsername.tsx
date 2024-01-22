@@ -8,30 +8,30 @@ import { useRouter } from "next/navigation";
 
 const GrabUsername = ({ user }: { user: string }) => {
   let [takenUsernameError, setTakenUsernameError] = useState(false);
-  let [nameError, setNameError] = useState(false);
+  let [grabnameWithoutSpacing, setGrabnameWithoutSpacing] = useState(true);
   let [name, setName] = useState(user);
   const router = useRouter();
-  const addUsername = async (formData: any) => {
-    const username = await AccountFormData(formData);
-    if (username === false) {
-      setTakenUsernameError(true);
-      Flash("error", "username is taken!");
-    } else if (username === true) {
-      setTakenUsernameError(false);
-      Flash("success", "User Created Successfully!");
-      setTimeout(() => {
-        router.push(`/account/${name}`);
-      }, 1000);
-    } else {
-      setTakenUsernameError(false);
-    }
-  };
 
-  const checkNameLegth = () => {
-    if (name.length > 3) {
-      setNameError(false);
+  const addUsername = async (formData: any) => {
+    const uri: string = formData.get("username");
+    if (uri.includes(" ")) {
+      setGrabnameWithoutSpacing(false);
+      Flash("error", "spaces are not allowed!");
     } else {
-      setNameError(true);
+      setGrabnameWithoutSpacing(true);
+      const username = await AccountFormData(uri);
+      if (username === false) {
+        setTakenUsernameError(true);
+        Flash("error", "username is taken!");
+      } else if (username === true) {
+        setTakenUsernameError(false);
+        Flash("success", "User Created Successfully!");
+        setTimeout(() => {
+          router.push(`/${name}`);
+        }, 1000);
+      } else {
+        setTakenUsernameError(false);
+      }
     }
   };
 
@@ -63,17 +63,14 @@ const GrabUsername = ({ user }: { user: string }) => {
           ) : (
             ""
           )}
-          {nameError ? (
-            <p className="p-2 w-fit text-red-600 mt-[-13px]">
-              Name must be more then 3 Charecters!
-            </p>
-          ) : (
+          {grabnameWithoutSpacing ? (
             ""
+          ) : (
+            <p className="p-2 w-1/2 text-red-600 mt-[-13px]">
+              Spaces are not allowed!
+            </p>
           )}
-          <button
-            onClick={checkNameLegth}
-            className="w-1/2 flex justify-center items-center gap-2 text-white bg-blue-600 border py-2 px-4 shadow-lg"
-          >
+          <button className="w-1/2 flex justify-center items-center gap-2 text-white bg-blue-600 border py-2 px-4 shadow-lg">
             <span>Claim Your Username</span>
             <FontAwesomeIcon icon={faArrowRight} className="w-5" />
           </button>

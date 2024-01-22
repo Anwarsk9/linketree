@@ -40,7 +40,7 @@ const PageSchema = new Schema(
       public_id: { type: String, default: "" },
     },
     socialMedia_Links: { type: Object, default: {} },
-    links: { type: Object, default: [] },
+    links: {  type: [Object], default: [] },
   },
   { timestamps: true }
 );

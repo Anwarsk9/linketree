@@ -26,3 +26,7 @@ body {
 .radio-togglers input[type="radio"]:checked ~ span > span {
   @apply bg-white;
 }
+
+.uri-icons {
+  @apply p-2 bg-white text-black rounded-full;
+}

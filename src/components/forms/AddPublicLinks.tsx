@@ -23,8 +23,8 @@ interface Links {
   icon: string;
   url: string;
 }
-const AddPublicLinks = ({ links }: { links: { res: [] } }) => {
-  const [publicLinks, SetPublicLinks] = useState<Links[]>(links.res || []);
+const AddPublicLinks = ({ links }: { links: []  }) => {
+  const [publicLinks, SetPublicLinks] = useState<Links[]>(links || []);
   const [publicId, setPublicId] = useState();
 
   const addNewLink = () => {
@@ -85,8 +85,8 @@ const AddPublicLinks = ({ links }: { links: { res: [] } }) => {
       let subtitle = fileData.get(`subtitle${i}`);
       let url = fileData.get(`url${i}`);
 
-      let icon = links.res ? (links.res.length ? links.res[i]?.icon : "") : "";
-      console.log(links.res[i]?.icon);
+      let icon = links ? (links.length ? links[i]?.icon : "") : "";
+      console.log(links[i]?.icon);
       let key = publicLinks[i]?.key;
       if (!icon) {
         inpData.push({ key, title, subtitle, url });

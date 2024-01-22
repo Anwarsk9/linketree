@@ -107,7 +107,7 @@ export const saveLinks = async (res: any) => {
   if (session) {
     await Page.findOneAndUpdate(
       { owner: session?.user?.email },
-      { links: { res } }
+      { links: res }
     );
     return true;
   }

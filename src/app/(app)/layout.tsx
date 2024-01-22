@@ -26,8 +26,8 @@ export default async function RootLayout({
   }
   const isGrabedUserName = await Page.findOne({ owner: session?.user?.email })
     .populate("bg_image")
-    .populate("profile_image");
-
+    .populate("profile_image")
+    .lean();
   return (
     <html lang="en">
       <body className={inter.className}>
@@ -35,7 +35,12 @@ export default async function RootLayout({
           {isGrabedUserName ? (
             <>
               <aside className="bg-white w-64 p-4 shadow-2xl">
-                <AsideBar imgSrc={session?.user?.image} />
+                <div className="sticky top-0 p-4">
+                  <AsideBar
+                    imgSrc={session?.user?.image}
+                    name={isGrabedUserName?.uri}
+                  />
+                </div>
               </aside>
             </>
           ) : (
