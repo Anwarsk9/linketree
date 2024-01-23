@@ -14,7 +14,7 @@ const AsideBar = ({ imgSrc, name }: { imgSrc: string; name: string }) => {
           alt="profile image"
           className="rounded-full"
         />
-        <Link href={`/${name}`} target="_main">
+        <Link href={`/${name}`} target="_blank">
           <div className="flex items-center gap-1 text-blue-600">
             <FontAwesomeIcon icon={faLink} className="h-5" />
             <span>/{name}</span>
