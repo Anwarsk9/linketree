@@ -5,6 +5,7 @@ import {
   faFacebook,
   faGithub,
   faInstagram,
+  faLinkedinIn,
   faTelegram,
   faTiktok,
   faWhatsapp,
@@ -46,25 +47,31 @@ const socialMediaOptions: SocialMediaOption[] = [
     key: "instagram",
     label: "Instagram",
     icon: faInstagram,
-    placeholder: "https://instagram.com/account...",
+    placeholder: "https://www.instagram.com/account...",
+  },
+  {
+    key: "linkedin",
+    label: "LinkedIn",
+    icon: faLinkedinIn,
+    placeholder: "https://www.linkedin.com/in/account...",
   },
   {
     key: "github",
     label: "Github",
     icon: faGithub,
-    placeholder: "https://github.com/account...",
+    placeholder: "https://www.github.com/account...",
   },
   {
     key: "facebook",
     label: "Facebook",
     icon: faFacebook,
-    placeholder: "https://facebook.com/account...",
+    placeholder: "https://www.facebook.com/account...",
   },
   {
     key: "discord",
     label: "Discord",
     icon: faDiscord,
-    placeholder: "https://discord.com/account...",
+    placeholder: "https://www.discord.com/account...",
   },
   {
     key: "whatsapp",
@@ -76,13 +83,13 @@ const socialMediaOptions: SocialMediaOption[] = [
     key: "tiktok",
     label: "Tiktok",
     icon: faTiktok,
-    placeholder: "https://tiktok.com/account...",
+    placeholder: "https://www.tiktok.com/account...",
   },
   {
     key: "telegram",
     label: "Telegram",
     icon: faTelegram,
-    placeholder: "https://telegram.com/account...",
+    placeholder: "https://www.telegram.com/account...",
   },
 ];
 
@@ -105,7 +112,7 @@ const AddSocialMediaLinksForm = ({
   };
 
   const handleAction = async (formData: any) => {
-    const saveData:object = {};
+    const saveData: object = {};
     formData.forEach((value: string, key: string) => {
       if (value) {
         saveData[key] = value;

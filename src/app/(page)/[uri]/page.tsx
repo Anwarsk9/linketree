@@ -12,6 +12,7 @@ import {
   faFacebook,
   faGithub,
   faInstagram,
+  faLinkedin,
   faTelegram,
   faTiktok,
   faWhatsapp,
@@ -21,6 +22,7 @@ import Link from "next/link";
 const socialMediaOptions = {
   email: faEnvelope,
   mobile: faPhone,
+  linkedin: faLinkedin,
   facebook: faFacebook,
   instagram: faInstagram,
   github: faGithub,
