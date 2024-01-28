@@ -37,6 +37,8 @@ const PageSettingsForm = ({
   const [bgColor, setBgColor] = useState(page?.bgColor);
   const [bgImgName, setBgImgName] = useState("");
   const [profileImgName, setProfileImgName] = useState("");
+  const [proPreview, setProPreview] = useState("");
+  const [bgPreview, setBgPreview] = useState("");
   const [bgImg, setBgImg] = useState({
     url: page?.bg_image.url,
     public_id: page.bg_image.public_id,
@@ -72,6 +74,8 @@ const PageSettingsForm = ({
             toast.success("Success!", { id: "loading" });
             setBgImgName("");
             setProfileImgName("");
+            setProPreview("");
+            setBgPreview("");
           }
         });
       });
@@ -85,12 +89,29 @@ const PageSettingsForm = ({
   };
 
   const handleImgName = (event: any) => {
+    const selectedFile = event.target.files[0];
+    if (selectedFile && selectedFile.type.includes("image")) {
+      const reader = new FileReader();
+      reader.onload = () => {
+        setBgPreview(reader.result);
+      };
+      reader.readAsDataURL(selectedFile);
+    }
     if (event.target.files) {
       setBgImgName(event.target.files[0].name);
     }
   };
   const handleProfileImgName = (event: any) => {
-    console.log(event.target.files.length);
+    console.log(event.target.files);
+    const selectedFile = event.target.files[0];
+    if (selectedFile && selectedFile.type.includes("image")) {
+      const reader = new FileReader();
+      reader.onload = () => {
+        setProPreview(reader.result);
+      };
+      reader.readAsDataURL(selectedFile);
+    }
+
     if (event.target.files.length) {
       let name = event.target.files[0].name;
       setProfileImgName(name.slice(0, 10) + "...");
@@ -114,7 +135,7 @@ const PageSettingsForm = ({
           style={
             bgType === "color"
               ? { backgroundColor: bgColor }
-              : { backgroundImage: `url(${bgImg.url})` }
+              : { backgroundImage: `url(${bgPreview ? bgPreview : bgImg.url})` }
           }
         >
           <RadioTogglers
@@ -161,7 +182,13 @@ const PageSettingsForm = ({
                border-white shadow shadow-black/50"
               >
                 <Image
-                  src={profileImg.url ? profileImg.url : session?.user?.image}
+                  src={
+                    profileImg.url
+                      ? proPreview
+                        ? proPreview
+                        : profileImg.url
+                      : session?.user?.image
+                  }
                   width={150}
                   height={150}
                   alt="Profile Image"

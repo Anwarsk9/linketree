@@ -1,7 +1,9 @@
 import { Page } from "@/models/Page";
+import { Event } from "@/models/Event";
 import React from "react";
 import Image from "next/image";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { notFound } from "next/navigation";
 import {
   faEnvelope,
   faLink,
@@ -73,6 +75,7 @@ const URI = async ({ params }: { params: { uri: string } }) => {
       return value;
     }
   };
+  await Event.create({ type: "view", uri});
 
   return page ? (
     <div className="bg-blue-950 text-white h-screen">
@@ -159,7 +162,7 @@ const URI = async ({ params }: { params: { uri: string } }) => {
       </div>
     </div>
   ) : (
-    <div>Oops seems like you don't have an account!</div>
+    notFound()
   );
 };
 

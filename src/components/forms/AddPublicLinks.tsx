@@ -52,6 +52,8 @@ const AddPublicLinks = ({ links }: { links: []  }) => {
       const reader = new FileReader();
 
       reader.onload = () => {
+        const url = reader.result;
+        console.log(url);
         SetPublicLinks((preValue) => {
           const newLinks = [...preValue];
           newLinks.forEach((link) => {
