@@ -12,51 +12,30 @@ const Analytics = async () => {
     return redirect("/");
   }
   const page = await Page.findOne({ owner: session.user?.email });
-  const viewsCount = await Event.countDocuments({
-    type: "view",
-    uri: page.uri,
-  });
-  const clickCount = await Event.countDocuments({
-    type: "click",
-    uri: page.links.map((link) => link.url),
-  });
-
-  const userAnalytics = await Event.aggregate(
-    [
-      {
-        $match: {
-          type: "view",
-          uri: page.uri,
-        },
+  const userAnalytics = await Event.aggregate([
+    {
+      $match: {
+        type: "view",
+        uri: page.uri,
       },
-      {
-        $group: {
-          _id: {
-            $dateToString: {
-              date: "$createdAt",
-              format: "%Y-%m-%d",
-            },
-          },
-          count: {
-            $count: {},
+    },
+    {
+      $group: {
+        _id: {
+          $dateToString: {
+            date: "$createdAt",
+            format: "%Y-%m-%d",
           },
         },
+        count: {
+          $count: {},
+        },
       },
-    ],
-    { $order: "-_id" }
-  );
-
+    },
+    { $sort: { _id: 1 } },
+  ]);
   return (
     <div className="w-full h-full p-6 bg-white">
-      <div className="">views: {viewsCount}</div>
-      <div className="">clicks: {clickCount}</div>
-      <div>
-        {userAnalytics.map(({ _id: date, count }) => (
-          <div>
-            {date}: {count}
-          </div>
-        ))}
-      </div>
       <Chart data={userAnalytics} />
     </div>
   );

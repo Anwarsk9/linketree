@@ -75,7 +75,7 @@ const URI = async ({ params }: { params: { uri: string } }) => {
       return value;
     }
   };
-  await Event.create({ type: "view", uri});
+  await Event.create({ type: "view", uri });
 
   return page ? (
     <div className="bg-blue-950 text-white h-screen">
@@ -132,7 +132,7 @@ const URI = async ({ params }: { params: { uri: string } }) => {
         <div className="max-w-2xl flex flex-wrap gap-10 p-5n">
           {page.links.map((link) => (
             <Link
-            ping={"/api/click?url="+btoa(link.url)}
+              ping={"/api/click?url=" + btoa(link.url)}
               href={link.url}
               target="_blank"
               rel="noopener noreferrer"
