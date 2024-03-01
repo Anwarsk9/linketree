@@ -132,6 +132,7 @@ const URI = async ({ params }: { params: { uri: string } }) => {
         <div className="max-w-2xl flex flex-wrap gap-10 p-5n">
           {page.links.map((link) => (
             <Link
+            ping={"/api/click?url="+btoa(link.url)}
               href={link.url}
               target="_blank"
               rel="noopener noreferrer"
