@@ -1,6 +1,6 @@
 import { saveLinks } from "./PageSettingsAction";
 import { removeLink } from "./ImgUploadToCloudinary";
-export const Cloudinary = async (linkArr: any, inpData: object[]) => {
+export const Cloudinary = async (linkArr: any, inpData: {icon:string}[]) => {
   const imageResLinks = [];
   if (linkArr.length) {
     for (const [index, file] of linkArr.entries()) {
