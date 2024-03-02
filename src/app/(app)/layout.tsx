@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "../globals.css";
 import { getServerSession } from "next-auth";
-import { authOptions } from "../api/auth/[...nextauth]/route";
+import { authOptions } from "@/libs/auth";
 import { redirect } from "next/navigation";
 import AsideBar from "@/components/account/AsideBar";
 import { Page } from "@/models/Page";

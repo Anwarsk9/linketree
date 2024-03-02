@@ -1,4 +1,4 @@
-import { authOptions } from "@/app/api/auth/[...nextauth]/route";
+import { authOptions } from "@/libs/auth";
 import Chart from "@/components/chart/Chart";
 import { Event } from "@/models/Event";
 import { Page } from "@/models/Page";

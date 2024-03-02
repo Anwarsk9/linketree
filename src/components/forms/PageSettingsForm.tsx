@@ -1,7 +1,6 @@
 "use client";
 
 import {
-  faFloppyDisk,
   faImage,
   faPalette,
   faSave,
