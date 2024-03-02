@@ -40,6 +40,7 @@ export const imgUploadToCloudinary = async (
         )
         .end(buffer);
     });
+    //@ts-ignore
     return { url: result?.url, public_id: result?.public_id };
   };
 

@@ -88,6 +88,7 @@ export const saveSocialMediaOptionsToDB = async (formData: object) => {
     const optionValues = {};
     for (let key in formData) {
       if (Object.keys(formData).length) {
+        //@ts-ignore
         optionValues[key] = formData[key];
       }
     }
