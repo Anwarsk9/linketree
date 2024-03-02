@@ -128,40 +128,38 @@ const URI = async ({ params }: { params: { uri: string } }) => {
             ))
           : ""}
       </div>
-      <div className="flex justify-center">
-        <div className="max-w-2xl flex flex-wrap gap-10 p-5n">
+        <div className="max-w-2xl flex flex-wrap gap-10 p-5n m-auto">
           {page.links.map((link) => (
-            <Link
-              ping={"/api/click?url=" + btoa(link.url)}
-              href={link.url}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="w-[44%] h-24 flex gap-1 m-5 mr-0 mb-0 rounded bg-blue-700 shadow-2xl"
-            >
-              <div className="relative right-3 top-3">
-                {link.icon ? (
-                  <Image
-                    src={link.icon}
-                    alt="links icon"
-                    height={70}
-                    width={70}
-                    className="rounded shadow-2xl"
-                  />
-                ) : (
-                  <div className="flex justify-center bg-blue-600 h-[70px] w-[70px] rounded shadow-2xl">
-                    <FontAwesomeIcon icon={faLink} className="w-8" />
-                  </div>
-                )}
-              </div>
-              <div className="flex flex-col mt-3">
-                <span>{link.title}</span>
-                <span className="text-white/60 mt-2">{link.subtitle}</span>
-              </div>
-            </Link>
+              <Link
+                ping={"/api/click?url=" + btoa(link.url)}
+                href={link.url}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="w-[44%] h-24 flex gap-1 m-5 mr-0 mb-0 rounded bg-blue-700 shadow-2xl"
+              >
+                <div className="relative right-3 top-3">
+                  {link.icon ? (
+                    <Image
+                      src={link.icon}
+                      alt="links icon"
+                      height={70}
+                      width={70}
+                      className="rounded shadow-2xl"
+                    />
+                  ) : (
+                    <div className="flex justify-center bg-blue-600 h-[70px] w-[70px] rounded shadow-2xl">
+                      <FontAwesomeIcon icon={faLink} className="w-8" />
+                    </div>
+                  )}
+                </div>
+                <div className="flex flex-col mt-3">
+                  <span>{link.title}</span>
+                  <span className="text-white/60 mt-2">{link.subtitle}</span>
+                </div>
+              </Link>
           ))}
         </div>
       </div>
-    </div>
   ) : (
     notFound()
   );

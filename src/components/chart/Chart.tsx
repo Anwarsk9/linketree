@@ -12,7 +12,6 @@ import {
 const Chart = ({ data }: { data: object[] }) => {
   return (
     <>
-      <h2 className="text-xl font-bold mb-4 text-center">Views </h2>
       <ResponsiveContainer width={"100%"} height={220}>
         <LineChart
           width={600}
@@ -26,6 +25,7 @@ const Chart = ({ data }: { data: object[] }) => {
             axisLine={false}
             tickLine={false}
             tickMargin={15}
+            textLength={70}
           />
           <YAxis axisLine={false} tickLine={false} tickMargin={10} />
           <Tooltip />

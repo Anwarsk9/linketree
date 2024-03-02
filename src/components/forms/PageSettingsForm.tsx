@@ -176,7 +176,7 @@ const PageSettingsForm = ({
         </div>
         <div>
           <div className="flex justify-center h-24">
-            <div className="relative -top-16 w-[170px] h-[170px] ">
+            <div className="relative -top-16 w-[150px] h-[150px] ">
               <div
                 className="overflow-hidden h-full rounded-full border-4
                border-white shadow shadow-black/50"

@@ -48,10 +48,10 @@ const AccountSignoutBtns = () => {
       </button>
       <Link
         href={"/"}
-        className="flex items-center gap-2 mt-4 text-gray-500 hover:text-gray-700"
+        className="flex items-center gap-2 mt-4 -ml-4 text-gray-500 hover:text-gray-700"
       >
         <FontAwesomeIcon icon={faArrowLeft} className="w-5" />
-        <span>Go back to Home</span>
+        <span>Go Home</span>
       </Link>
     </div>
   );
