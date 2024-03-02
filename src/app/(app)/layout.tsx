@@ -7,7 +7,7 @@ import { redirect } from "next/navigation";
 import AsideBar from "@/components/account/AsideBar";
 import { Page } from "@/models/Page";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faBars, faHamburger } from "@fortawesome/free-solid-svg-icons";
+import { faBars } from "@fortawesome/free-solid-svg-icons";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -33,12 +33,12 @@ export default async function RootLayout({
   return (
     <html lang="en">
       <body className={inter.className}>
-        <div className="md:hidden absolute z-20 mt-8 ml-7 bg-white w-fit hover:cursor-pointer p-3 rounded">
+        <label htmlFor="nav" className="md:hidden absolute z-20 mt-8 ml-7 bg-white w-fit hover:cursor-pointer p-3 rounded">
           <FontAwesomeIcon icon={faBars} className="w-5" />
-          <label className="ml-1 hover:cursor-pointer" htmlFor="nav">
+          <span className="ml-1 hover:cursor-pointer" >
             Open navigation
-          </label>
-        </div>
+          </span>
+        </label>
         <input className="hidden" type="checkbox" id="nav" />
         <nav className="flex absolute md:static -left-56 transition-all" id="nav-bar">
           {isGrabedUserName ? (
