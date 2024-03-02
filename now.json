@@ -1,6 +1,6 @@
 {
-    "build": {
-      "ignore": ["**/*.ts", "**/*.tsx"]
-    }
+  "buildCommand": "next build",
+  "build": {
+    "ignore": ["**/*.ts", "**/*.tsx"]
   }
-  
+}
