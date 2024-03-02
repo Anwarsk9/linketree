@@ -91,13 +91,14 @@ const URI = async ({ params }: { params: { uri: string } }) => {
               }
         }
       ></div>
-      <div className="flex justify-center -mt-20">
-        <div className="rounded-full overflow-hidden">
+      <div className="flex justify-center -mt-16 md:-mt-20">
+        <div className="border-4 border-white rounded-full overflow-hidden">
           <Image
             src={page.profile_image.url}
             width={150}
             height={150}
             alt="profile picture"
+            className="h-28 w-28 md:h-32 md:w-32"
           />
         </div>
       </div>
@@ -128,14 +129,14 @@ const URI = async ({ params }: { params: { uri: string } }) => {
             ))
           : ""}
       </div>
-        <div className="max-w-2xl flex flex-wrap gap-10 p-5n m-auto">
+        <div className="max-w-2xl p-2 pr-4 flex flex-wrap gap-10 m-auto">
           {page.links.map((link) => (
               <Link
                 ping={"/api/click?url=" + btoa(link.url)}
                 href={link.url}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="w-[44%] h-24 flex gap-1 m-5 mr-0 mb-0 rounded bg-blue-700 shadow-2xl"
+                className="md:w-[44%] w-[90%] h-24 flex gap-1 m-5 mr-0 mb-0 rounded bg-blue-700 shadow-2xl"
               >
                 <div className="relative right-3 top-3">
                   {link.icon ? (

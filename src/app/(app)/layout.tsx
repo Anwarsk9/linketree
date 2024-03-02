@@ -6,6 +6,8 @@ import { authOptions } from "../api/auth/[...nextauth]/route";
 import { redirect } from "next/navigation";
 import AsideBar from "@/components/account/AsideBar";
 import { Page } from "@/models/Page";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faBars, faHamburger } from "@fortawesome/free-solid-svg-icons";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -31,11 +33,19 @@ export default async function RootLayout({
   return (
     <html lang="en">
       <body className={inter.className}>
-        <main className="flex">
+        <div className="md:hidden absolute z-20 mt-8 ml-7 bg-white w-fit hover:cursor-pointer p-3 rounded">
+          <FontAwesomeIcon icon={faBars} className="w-5" />
+          <label className="ml-1 hover:cursor-pointer" htmlFor="nav">
+            Open navigation
+          </label>
+        </div>
+        <input className="hidden" type="checkbox" id="nav" />
+        <nav className="flex absolute md:static -left-56 transition-all" id="nav-bar">
           {isGrabedUserName ? (
             <>
-              <aside className="bg-white w-64 p-4 shadow-2xl">
-                <div className="sticky top-0 p-4">
+            <label htmlFor="nav" className="hidden backdrop fixed inset-0 bg-black/80 z-10"></label>
+              <aside className="bg-white relative z-50 min-h-screen w-72 p-4 shadow-2xl">
+                <div className="sticky top-0 p-8">
                   <AsideBar
                     imgSrc={session?.user?.image}
                     name={isGrabedUserName?.uri}
@@ -46,8 +56,8 @@ export default async function RootLayout({
           ) : (
             ""
           )}
-          <div className="w-full h-full p-6">{children}</div>
-        </main>
+          <div className="!relative w-full h-full p-6">{children}</div>
+        </nav>
       </body>
     </html>
   );

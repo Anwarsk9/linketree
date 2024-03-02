@@ -5,7 +5,6 @@ import { Page } from "@/models/Page";
 import { getServerSession } from "next-auth";
 import Link from "next/link";
 import { redirect } from "next/navigation";
-import dateFormat from "dateformat";
 import { isToday } from "date-fns";
 
 const Analytics = async () => {
@@ -40,13 +39,13 @@ const Analytics = async () => {
 
   const allClicks = await Event.find({ type: "click", uri: page.uri });
   return (
-    <div className="w-full h-screen p-6 bg-white">
+      <div className="md:min-w-full min-h-screen p-6 bg-white">
       <div>
-        <h2 className="text-xl font-bold mb-4 text-center">Views</h2>
+        <h2 className="text-xl font-bold mb-4 mt-10 text-center">Views</h2>
         <Chart data={userAnalytics} />
-      </div>
+      </div>s
       <div>
-        <h2 className="text-xl font-bold my-4 mt-6 text-center">Clicks</h2>
+        <h2 className="text-xl font-bold my-4 mt-10 text-center">Clicks</h2>
         {page.links.map((link) => (
           <div className="flex justify-between border border-t-2 p-2 mb-2">
             <div className=" ">

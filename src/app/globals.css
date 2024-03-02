@@ -30,3 +30,11 @@ body {
 .uri-icons {
   @apply p-2 bg-white text-black rounded-full;
 }
+
+ #nav:checked ~ #nav-bar {
+  left: 0;
+}
+
+#nav:checked ~ #nav-bar > .backdrop{
+  display: inline;
+}
