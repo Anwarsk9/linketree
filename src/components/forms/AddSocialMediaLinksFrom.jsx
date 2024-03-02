@@ -23,14 +23,7 @@ import LoadingBtn from "../buttons/LoadingBtn";
 import toast from "react-hot-toast";
 import { ReactSortable } from "react-sortablejs";
 
-interface SocialMediaOption {
-  key: string;
-  label: string;
-  icon: any;
-  placeholder: string;
-}
-
-const socialMediaOptions: SocialMediaOption[] = [
+const socialMediaOptions = [
   {
     key: "email",
     label: "E-mail",
@@ -93,27 +86,22 @@ const socialMediaOptions: SocialMediaOption[] = [
   },
 ];
 
-const AddSocialMediaLinksForm = ({
-  socialMedia_Links,
-}: {
-  socialMedia_Links: object;
-}) => {
+const AddSocialMediaLinksForm = ({ socialMedia_Links }) => {
   const buttonsToProfile = Object.keys(socialMedia_Links);
   const activeButtons = socialMediaOptions.filter((btn1) => {
     return buttonsToProfile.some((btn2) => btn2 === btn1.key);
   });
-  const [activeButton, setActiveButton] =
-    useState<SocialMediaOption[]>(activeButtons);
+  const [activeButton, setActiveButton] = useState(activeButtons);
 
-  const addButtonToProfile = (button: object) => {
-    setActiveButton((prevButton: any) => {
+  const addButtonToProfile = (button) => {
+    setActiveButton((prevButton) => {
       return [...prevButton, button];
     });
   };
 
-  const handleAction = async (formData: any) => {
-    const saveData: object = {};
-    formData.forEach((value: string, key: string) => {
+  const handleAction = async (formData) => {
+    const saveData = {};
+    formData.forEach((value, key) => {
       if (value) {
         saveData[key] = value;
       }
@@ -127,7 +115,7 @@ const AddSocialMediaLinksForm = ({
     });
   };
 
-  const handleDelete = (btn: SocialMediaOption) => {
+  const handleDelete = (btn) => {
     const addBtn = activeButton.filter((el) => el.key !== btn.key);
     setActiveButton(addBtn);
   };
@@ -145,7 +133,7 @@ const AddSocialMediaLinksForm = ({
       >
         <ReactSortable list={activeButton} setList={setActiveButton}>
           {activeButton
-            ? activeButton.map((b,idx) => (
+            ? activeButton.map((b, idx) => (
                 <div className="flex mb-4" key={idx}>
                   <div className="flex  items-center gap-2 bg-gray-400 text-gray-700 w-36">
                     <FontAwesomeIcon
@@ -173,7 +161,7 @@ const AddSocialMediaLinksForm = ({
             : ""}
         </ReactSortable>
         <div className="flex flex-wrap">
-          {notActiveBtns.map((mediaOption,idx) => (
+          {notActiveBtns.map((mediaOption, idx) => (
             <div className="p-1" key={idx}>
               <button
                 onClick={() => addButtonToProfile(mediaOption)}

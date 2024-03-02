@@ -16,15 +16,8 @@ import toast from "react-hot-toast";
 import Image from "next/image";
 import { Cloudinary } from "@/actions/Cloudinary";
 
-interface Links {
-  key: string;
-  title: string;
-  subtitle: string;
-  icon: string;
-  url: string;
-}
-const AddPublicLinks = ({ links }: { links: []  }) => {
-  const [publicLinks, SetPublicLinks] = useState<Links[]>(links || []);
+const AddPublicLinks = ({ links }) => {
+  const [publicLinks, SetPublicLinks] = useState(links || []);
   const [publicId, setPublicId] = useState();
 
   const addNewLink = () => {
@@ -41,11 +34,11 @@ const AddPublicLinks = ({ links }: { links: []  }) => {
       ];
     });
   };
-  const removeLink = (rmKey: string) => {
+  const removeLink = (rmKey) => {
     const fil = publicLinks.filter((link) => link.key !== rmKey);
     SetPublicLinks(fil);
   };
-  const previewImages = (file: any, key: string) => {
+  const previewImages = (file, key) => {
     const selectedFile = file.target.files[0];
 
     if (selectedFile && selectedFile.type.includes("image")) {
@@ -69,12 +62,12 @@ const AddPublicLinks = ({ links }: { links: []  }) => {
     }
   };
 
-  const onSubmit = async (fileData: any) => {
+  const onSubmit = async (fileData) => {
     if (!publicLinks.length) {
       console.log("con true");
       await Cloudinary("", []).then((res) => console.log(res));
     }
-    const keys: any[] = [];
+    const keys = [];
     publicLinks.map((el) => keys.push(el.key));
     const files = [];
     for (let i = 0; i < keys.length; i++) {
@@ -86,9 +79,8 @@ const AddPublicLinks = ({ links }: { links: []  }) => {
       let title = fileData.get(`title${i}`);
       let subtitle = fileData.get(`subtitle${i}`);
       let url = fileData.get(`url${i}`);
-
+      //@ts-ignore
       let icon = links ? (links.length ? links[i]?.icon : "") : "";
-      console.log(links[i]?.icon);
       let key = publicLinks[i]?.key;
       if (!icon) {
         inpData.push({ key, title, subtitle, url });
@@ -185,7 +177,6 @@ const AddPublicLinks = ({ links }: { links: []  }) => {
             </div>
           ))}
         </ReactSortable>
-
         <div className="flex justify-center mt-10">
           <LoadingBtn className=" text-white bg-blue-600 flex items-center justify-center gap-2 p-2 rounded w-1/4">
             <FontAwesomeIcon icon={faSave} className="w-5" />

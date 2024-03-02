@@ -6,14 +6,15 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faLink } from "@fortawesome/free-solid-svg-icons";
 
 const Header = async () => {
+  //@ts-ignore
   const session = await getServerSession(authOptions);
   return (
     <header className=" py-4 bg-white border-b-4">
       <div className="flex justify-between max-w-4xl px-8 mx-auto ">
         <div className="flex gap-6 items-center">
-          <Link href={"/"}  className="text-lg text-blue-600" >
+          <Link href={"/"} className="text-lg text-blue-600">
             <div className="flex items-center font-extrabold gap-2">
-              <FontAwesomeIcon icon={faLink}/>
+              <FontAwesomeIcon icon={faLink} />
               <span>LinkTree</span>
             </div>
           </Link>

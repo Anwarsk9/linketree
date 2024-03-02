@@ -24,13 +24,12 @@ const RadioTogglers = ({
             name="bgType"
             value={option.value}
             defaultChecked={option?.value === defaultChecked}
+            //@ts-ignore
             onClick={(event) => onChange(event?.target?.value)}
           />
           <span className="text-gray-500 hover:text-gray-600 hover:cursor-pointer">
             <FontAwesomeIcon icon={option?.icon} className="w-4" />
-            <span>
-              {option?.label}
-            </span>
+            <span>{option?.label}</span>
           </span>
         </label>
       ))}

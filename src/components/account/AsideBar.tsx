@@ -3,7 +3,7 @@ import AccountSidebarBtns from "@/components/buttons/AccountSidebarBtns";
 import Link from "next/link";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCircleXmark, faLink } from "@fortawesome/free-solid-svg-icons";
-const AsideBar = ({ imgSrc, name }: { imgSrc: string; name: string }) => {
+const AsideBar = ({ imgSrc, name }: { imgSrc: any; name: string }) => {
   return (
     <>
       <label htmlFor="nav">

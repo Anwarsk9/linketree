@@ -15,22 +15,19 @@ import { useState } from "react";
 import { imgUploadToCloudinary } from "@/actions/ImgUploadToCloudinary";
 import { faCloudArrowUp } from "@fortawesome/free-solid-svg-icons/faCloudArrowUp";
 
-interface PageProps {
-  displayname: string;
-  location: string;
-  bio: string;
-  bgType: string;
-  bgColor: string;
-  bg_image: { url: string; public_id: string };
-  profile_image: { url: string; public_id: string };
-}
+// interface PageProps {
+//   displayname: string;
+//   location: string;
+//   bio: string;
+//   bgType: string;
+//   bgColor: string;
+//   bg_image: { url: string; public_id: string };
+//   profile_image: { url: string; public_id: string };
+// }
 
 const PageSettingsForm = ({
   page,
   session,
-}: {
-  page: PageProps;
-  session: { user: { image: string } };
 }) => {
   const [bgType, setBgType] = useState(page?.bgType);
   const [bgColor, setBgColor] = useState(page?.bgColor);
@@ -47,7 +44,7 @@ const PageSettingsForm = ({
     public_id: page.profile_image.public_id,
   });
 
-  const saveBaseSettings = async (formData: any) => {
+  const saveBaseSettings = async (formData) => {
     // to check ,if user uploaded file then only save the file.
     if (bgImgName || profileImgName) {
       await imgUploadToCloudinary(
@@ -87,7 +84,7 @@ const PageSettingsForm = ({
     }
   };
 
-  const handleImgName = (event: any) => {
+  const handleImgName = (event) => {
     const selectedFile = event.target.files[0];
     if (selectedFile && selectedFile.type.includes("image")) {
       const reader = new FileReader();
@@ -100,7 +97,7 @@ const PageSettingsForm = ({
       setBgImgName(event.target.files[0].name);
     }
   };
-  const handleProfileImgName = (event: any) => {
+  const handleProfileImgName = (event) => {
     console.log(event.target.files);
     const selectedFile = event.target.files[0];
     if (selectedFile && selectedFile.type.includes("image")) {

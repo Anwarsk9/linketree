@@ -8,6 +8,7 @@ import { redirect } from "next/navigation";
 import { isToday } from "date-fns";
 
 const Analytics = async () => {
+  //@ts-ignore
   const session = await getServerSession(authOptions);
 
   if (!session) {
@@ -46,8 +47,11 @@ const Analytics = async () => {
       </div>
       <div className="md:min-w-full rounded p-6 bg-white mt-5">
         <h2 className="text-xl font-bold mb-8 text-center">Clicks</h2>
-        {page.links.map((link) => (
-          <div key={link.key} className="flex justify-between border border-t-2 p-2 mb-2">
+        {page.links.map((link: any) => (
+          <div
+            key={link.key}
+            className="flex justify-between border border-t-2 p-2 mb-2"
+          >
             <div className=" ">
               <div className="text-lg font-semibold mb-1">{link.title}</div>
               <div className="text-sm">{link.subtitle}</div>

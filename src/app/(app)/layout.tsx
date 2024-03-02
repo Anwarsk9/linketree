@@ -21,6 +21,7 @@ export default async function RootLayout({
 }: {
   children: React.ReactNode;
 }) {
+  //@ts-ignore
   const session = await getServerSession(authOptions);
 
   if (!session) {
@@ -33,21 +34,29 @@ export default async function RootLayout({
   return (
     <html lang="en">
       <body className={inter.className}>
-        <label htmlFor="nav" className="md:hidden absolute z-20 mt-8 ml-7 bg-white w-fit hover:cursor-pointer p-3 rounded">
+        <label
+          htmlFor="nav"
+          className="md:hidden absolute z-20 mt-8 ml-7 bg-white w-fit hover:cursor-pointer p-3 rounded"
+        >
           <FontAwesomeIcon icon={faBars} className="w-5" />
-          <span className="ml-1 hover:cursor-pointer" >
-            Open navigation
-          </span>
+          <span className="ml-1 hover:cursor-pointer">Open navigation</span>
         </label>
         <input className="hidden" type="checkbox" id="nav" />
-        <nav className="flex absolute md:static -left-56 transition-all" id="nav-bar">
+        <nav
+          className="flex absolute md:static -left-56 transition-all"
+          id="nav-bar"
+        >
           {isGrabedUserName ? (
             <>
-            <label htmlFor="nav" className="hidden backdrop fixed inset-0 bg-black/80 z-10"></label>
+              <label
+                htmlFor="nav"
+                className="hidden backdrop fixed inset-0 bg-black/80 z-10"
+              ></label>
               <aside className="bg-white relative z-50 min-h-screen w-72 p-4 shadow-2xl">
                 <div className="sticky top-0 p-8">
                   <AsideBar
                     imgSrc={session?.user?.image}
+                    //@ts-ignore
                     name={isGrabedUserName?.uri}
                   />
                 </div>

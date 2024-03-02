@@ -21,6 +21,7 @@ export const saveBaseFormChangesToDB = async (
     let bgType = formData.get("bgType");
     let bgColor = formData.get("bgColor");
     try {
+      //@ts-ignore
       const session = await getServerSession(authOptions);
       if (session) {
         await Page.findOneAndUpdate(
@@ -82,7 +83,7 @@ export const saveBaseFormChangesToDB = async (
 };
 
 export const saveSocialMediaOptionsToDB = async (formData: object) => {
-  console.log(formData);
+  //@ts-ignore
   const session = await getServerSession(authOptions);
   if (session) {
     const optionValues = {};
@@ -103,7 +104,7 @@ export const saveSocialMediaOptionsToDB = async (formData: object) => {
 };
 
 export const saveLinks = async (res: any) => {
-  console.log(res);
+  //@ts-ignore
   const session = await getServerSession(authOptions);
   if (session) {
     await Page.findOneAndUpdate(

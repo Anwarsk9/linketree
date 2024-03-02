@@ -14,6 +14,7 @@ interface Request {
 
 const Account = async (req: Request) => {
   const { username } = req.searchParams;
+  //@ts-ignore
   const isLoggedIn = await getServerSession(authOptions);
   if (!isLoggedIn) {
     return redirect("/");

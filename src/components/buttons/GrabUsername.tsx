@@ -6,7 +6,7 @@ import AccountFormData from "../../actions/AccountFormData";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 
-const GrabUsername = ({ user }: { user: string }) => {
+const GrabUsername = ({ user }: { user: any }) => {
   let [takenUsernameError, setTakenUsernameError] = useState(false);
   let [grabnameWithoutSpacing, setGrabnameWithoutSpacing] = useState(true);
   let [name, setName] = useState(user);
