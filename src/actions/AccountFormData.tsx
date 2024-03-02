@@ -9,6 +9,7 @@ const AccountFormData = async (uri: string) => {
     try {
       let searchName = await Page.findOne({ uri });
       if (!searchName) {
+        //@ts-ignore
         let session = await getServerSession(authOptions);
         await Page.create({
           uri,
