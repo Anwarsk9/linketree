@@ -23,14 +23,17 @@ const Account = async (req: Request) => {
     .populate("bg_image")
     .populate("profile_image");
 
+    const leanPage = isGrabedUserName.toJSON();
+    leanPage._id = leanPage._id.toString();
+
   if (isGrabedUserName) {
     return (
       <div>
-        <PageSettingsForm page={isGrabedUserName} session={isLoggedIn} />
+        <PageSettingsForm page={leanPage} session={isLoggedIn} />
         <AddSocialMediaLinksForm
-          socialMedia_Links={isGrabedUserName.socialMedia_Links}
+          socialMedia_Links={leanPage.socialMedia_Links}
         />
-        <AddPublicLinks links = {isGrabedUserName?.links} />
+        <AddPublicLinks links = {leanPage?.links} />
       </div>
     );
   } else {

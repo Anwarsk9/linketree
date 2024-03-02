@@ -39,15 +39,15 @@ const Analytics = async () => {
 
   const allClicks = await Event.find({ type: "click", uri: page.uri });
   return (
-      <div className="md:min-w-full min-h-screen p-6 bg-white">
-      <div>
+    <>
+      <div className="md:min-w-full rounded p-6 bg-white">
         <h2 className="text-xl font-bold mb-4 mt-10 text-center">Views</h2>
         <Chart data={userAnalytics} />
-      </div>s
-      <div>
-        <h2 className="text-xl font-bold my-4 mt-10 text-center">Clicks</h2>
+      </div>
+      <div className="md:min-w-full rounded p-6 bg-white mt-5">
+        <h2 className="text-xl font-bold mb-8 text-center">Clicks</h2>
         {page.links.map((link) => (
-          <div className="flex justify-between border border-t-2 p-2 mb-2">
+          <div key={link.key} className="flex justify-between border border-t-2 p-2 mb-2">
             <div className=" ">
               <div className="text-lg font-semibold mb-1">{link.title}</div>
               <div className="text-sm">{link.subtitle}</div>
@@ -76,7 +76,7 @@ const Analytics = async () => {
           </div>
         ))}
       </div>
-    </div>
+    </>
   );
 };
 

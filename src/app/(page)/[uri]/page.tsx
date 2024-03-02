@@ -116,10 +116,11 @@ const URI = async ({ params }: { params: { uri: string } }) => {
       </div>
       <div className="flex justify-center gap-2 mt-5">
         {page.socialMedia_Links
-          ? Object.keys(page.socialMedia_Links).map((btnkey) => (
+          ? Object.keys(page.socialMedia_Links).map((btnkey,idx) => (
               <Link
                 href={buttonLink(btnkey, page.socialMedia_Links[btnkey])}
                 className="uri-icons"
+                key={idx}
               >
                 <FontAwesomeIcon
                   icon={socialMediaOptions[btnkey]}
@@ -135,6 +136,7 @@ const URI = async ({ params }: { params: { uri: string } }) => {
                 ping={"/api/click?url=" + btoa(link.url)}
                 href={link.url}
                 target="_blank"
+                key={link.key}
                 rel="noopener noreferrer"
                 className="md:w-[44%] w-[90%] h-24 flex gap-1 m-5 mr-0 mb-0 rounded bg-blue-700 shadow-2xl"
               >
