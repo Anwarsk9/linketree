@@ -87,15 +87,23 @@ const socialMediaOptions = [
 ];
 
 const AddSocialMediaLinksForm = ({ socialMedia_Links }) => {
-  const buttonsToProfile = Object.keys(socialMedia_Links);
-  const activeButtons = socialMediaOptions.filter((btn1) => {
-    return buttonsToProfile.some((btn2) => btn2 === btn1.key);
-  });
+  let activeButtons;
+  console.log(socialMedia_Links);
+  if (socialMedia_Links) {
+    const buttonsToProfile = Object.keys(socialMedia_Links);
+    activeButtons = socialMediaOptions.filter((btn1) => {
+      return buttonsToProfile.some((btn2) => btn2 === btn1.key);
+    });
+  }
   const [activeButton, setActiveButton] = useState(activeButtons);
 
   const addButtonToProfile = (button) => {
     setActiveButton((prevButton) => {
-      return [...prevButton, button];
+      if(prevButton){
+        return [...prevButton, button];
+      }else{
+        return [button];
+      }
     });
   };
 
@@ -121,7 +129,11 @@ const AddSocialMediaLinksForm = ({ socialMedia_Links }) => {
   };
 
   const notActiveBtns = socialMediaOptions.filter((btn1) => {
-    return activeButton.every((btn2) => btn2.key !== btn1.key);
+    if (activeButton) {
+      return activeButton.every((btn2) => btn2.key !== btn1.key);
+    }else{
+      return btn1;
+    }
   });
 
   return (
@@ -131,35 +143,35 @@ const AddSocialMediaLinksForm = ({ socialMedia_Links }) => {
         action={handleAction}
         onSubmit={() => toast.loading("loading...", { id: "loading" })}
       >
-        <ReactSortable list={activeButton} setList={setActiveButton}>
-          {activeButton
-            ? activeButton.map((b, idx) => (
-                <div className="flex mb-4" key={idx}>
-                  <div className="flex  items-center gap-2 bg-gray-400 text-gray-700 w-36">
-                    <FontAwesomeIcon
-                      icon={faGripLines}
-                      className="h-4 p-2 pr-0 hover:cursor-grab text-black"
-                    />
-                    <FontAwesomeIcon icon={b.icon} className="h-5" />
-                    <span>{b.label}</span>
-                  </div>
-                  <input
-                    type="text"
-                    name={b.key}
-                    placeholder={b.placeholder}
-                    defaultValue={socialMedia_Links[b.key]}
-                    className="bg-gray-300 grow p-2 outline-blue-400"
+        {/* <ReactSortable list={activeButton} setList={setActiveButton}> */}
+        {activeButton
+          ? activeButton.map((b, idx) => (
+              <div className="flex mb-4" key={idx}>
+                <div className="flex  items-center gap-2 bg-gray-400 text-gray-700 w-36">
+                  <FontAwesomeIcon
+                    icon={faGripLines}
+                    className="h-4 p-2 pr-0 hover:cursor-grab text-black"
                   />
-                  <label
-                    onClick={() => handleDelete(b)}
-                    className="p-4 bg-gray-400 hover:cursor-grab"
-                  >
-                    <FontAwesomeIcon icon={faTrash} />
-                  </label>
+                  <FontAwesomeIcon icon={b.icon} className="h-5" />
+                  <span>{b.label}</span>
                 </div>
-              ))
-            : ""}
-        </ReactSortable>
+                <input
+                  type="text"
+                  name={b.key}
+                  placeholder={b.placeholder}
+                  defaultValue={socialMedia_Links?socialMedia_Links[b.key]:""}
+                  className="bg-gray-300 grow p-2 outline-blue-400"
+                />
+                <label
+                  onClick={() => handleDelete(b)}
+                  className="p-4 bg-gray-400 hover:cursor-grab"
+                >
+                  <FontAwesomeIcon icon={faTrash} />
+                </label>
+              </div>
+            ))
+          : ""}
+        {/* </ReactSortable> */}
         <div className="flex flex-wrap">
           {notActiveBtns.map((mediaOption, idx) => (
             <div className="p-1" key={idx}>

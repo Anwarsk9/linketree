@@ -20,6 +20,8 @@ import {
   faWhatsapp,
 } from "@fortawesome/free-brands-svg-icons";
 import Link from "next/link";
+import { getServerSession } from "next-auth";
+import { authOptions } from "@/libs/auth";
 
 const socialMediaOptions = {
   email: faEnvelope,
@@ -65,7 +67,6 @@ const URI = async ({ params }: { params: { uri: string } }) => {
     .populate("bg_image")
     .populate("profile_image")
     .lean();
-
   const buttonLink = (btnkey: string, value: string) => {
     if (btnkey === "mobile") {
       return "tel: " + value;
@@ -75,8 +76,9 @@ const URI = async ({ params }: { params: { uri: string } }) => {
       return value;
     }
   };
+  //@ts-ignore
+  const { user } = await getServerSession(authOptions);
   await Event.create({ type: "view", uri });
-
   return page ? (
     <div className="bg-blue-950 text-white h-screen">
       <div
@@ -94,7 +96,7 @@ const URI = async ({ params }: { params: { uri: string } }) => {
       <div className="flex justify-center -mt-16 md:-mt-20">
         <div className="border-4 border-white rounded-full overflow-hidden">
           <Image
-            src={page.profile_image.url}
+            src={page.profile_image.url ? page.profile_image.url : user.image}
             width={150}
             height={150}
             alt="profile picture"
@@ -132,7 +134,7 @@ const URI = async ({ params }: { params: { uri: string } }) => {
             ))
           : ""}
       </div>
-      <div className="max-w-2xl p-2 pr-4 flex flex-wrap gap-10 m-auto">
+      <div className="max-w-4xl p-2 mt-6 pr-4 flex flex-wrap gap-10 m-auto">
         {page.links.map((link) => (
           <Link
             ping={"/api/click?url=" + btoa(link.url)}
@@ -140,7 +142,7 @@ const URI = async ({ params }: { params: { uri: string } }) => {
             target="_blank"
             key={link.key}
             rel="noopener noreferrer"
-            className="md:w-[44%] w-[90%] h-24 flex gap-1 m-5 mr-0 mb-0 rounded bg-blue-700 shadow-2xl"
+            className="md:w-[44%] w-[60%] m-auto h-24 flex gap-1 md:m-5 md:mr-0 mb-0 rounded bg-blue-700 shadow-2xl"
           >
             <div className="relative right-3 top-3">
               {link.icon ? (

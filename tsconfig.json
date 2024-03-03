@@ -22,6 +22,6 @@
       "@/*": ["./src/*"]
     }
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "src/app/api/auth/[...nextauth]/route.js", "src/libs/auth.js", "src/components/forms/PageSettingsForm.jsx"],
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "src/app/api/auth/[...nextauth]/route.js", "src/libs/auth.js", "src/components/forms/PageSettingsForm.jsx", "src/libs/mongoClient.js", "src/components/forms/AddSocialMediaLinksFrom.jsx", "src/components/forms/AddPublicLinks.jsx"],
   "exclude": ["node_modules"]
 }

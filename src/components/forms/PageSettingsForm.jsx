@@ -1,10 +1,6 @@
 "use client";
 
-import {
-  faImage,
-  faPalette,
-  faSave,
-} from "@fortawesome/free-solid-svg-icons";
+import { faImage, faPalette, faSave } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Image from "next/image";
 import { saveBaseFormChangesToDB } from "@/actions/PageSettingsAction";
@@ -15,20 +11,7 @@ import { useState } from "react";
 import { imgUploadToCloudinary } from "@/actions/ImgUploadToCloudinary";
 import { faCloudArrowUp } from "@fortawesome/free-solid-svg-icons/faCloudArrowUp";
 
-// interface PageProps {
-//   displayname: string;
-//   location: string;
-//   bio: string;
-//   bgType: string;
-//   bgColor: string;
-//   bg_image: { url: string; public_id: string };
-//   profile_image: { url: string; public_id: string };
-// }
-
-const PageSettingsForm = ({
-  page,
-  session,
-}) => {
+const PageSettingsForm = ({ page, session }) => {
   const [bgType, setBgType] = useState(page?.bgType);
   const [bgColor, setBgColor] = useState(page?.bgColor);
   const [bgImgName, setBgImgName] = useState("");
@@ -43,7 +26,6 @@ const PageSettingsForm = ({
     url: page?.profile_image.url,
     public_id: page.profile_image.public_id,
   });
-
   const saveBaseSettings = async (formData) => {
     // to check ,if user uploaded file then only save the file.
     if (bgImgName || profileImgName) {
