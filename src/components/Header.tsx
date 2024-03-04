@@ -3,14 +3,28 @@ import { getServerSession } from "next-auth";
 import Lagout from "@/components/buttons/SignOut";
 import Link from "next/link";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faLink } from "@fortawesome/free-solid-svg-icons";
+import { faBars, faLink } from "@fortawesome/free-solid-svg-icons";
+import CollapsNavBar from "./account/CollapsNavBar";
 
 const Header = async () => {
   //@ts-ignore
   const session = await getServerSession(authOptions);
   return (
     <header className=" py-4 bg-white border-b-4">
-      <div className="flex justify-between max-w-4xl px-8 mx-auto ">
+      <label
+        htmlFor="bar"
+        className="hover:cursor-pointer sm:hidden inline-flex items-center justify-center rounded ml-4 bg-white relative z-30"
+      >
+        <FontAwesomeIcon icon={faBars} className="w-5 mr-2" />
+        <span>Menu</span>
+      </label>
+      <input className="hidden" type="checkbox" id="bar" />
+
+      <div className="fixed menu inset-0 bg-white">
+        <CollapsNavBar session={session}/>
+      </div>
+
+      <div className="hidden sm:flex justify-between max-w-4xl px-8 mx-auto ">
         <div className="flex gap-6 items-center">
           <Link href={"/"} className="text-lg text-blue-600">
             <div className="flex items-center font-extrabold gap-2">
@@ -25,7 +39,10 @@ const Header = async () => {
             <Link href={"/pricing"} className="hover:text-black">
               Pricing
             </Link>
-            <Link href={"/contact"} className="hover:text-black">
+            <Link
+              href={"/contact"}
+              className="hidden sm:block hover:text-black"
+            >
               Contact
             </Link>
           </nav>
@@ -36,7 +53,10 @@ const Header = async () => {
               <Link href={"/login"} className="hover:text-black">
                 SignIn
               </Link>
-              <Link href={"/register"} className="hover:text-black">
+              <Link
+                href={"/register"}
+                className="hidden sm:block hover:text-black"
+              >
                 Create Account
               </Link>
             </>

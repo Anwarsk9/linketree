@@ -31,10 +31,27 @@ body {
   @apply p-2 bg-white text-black rounded-full;
 }
 
- #nav:checked ~ #nav-bar {
+#nav:checked ~ #nav-bar {
   left: 0;
 }
 
-#nav:checked ~ #nav-bar > .backdrop{
+#nav:checked ~ #nav-bar > .backdrop {
   display: inline;
+}
+
+#bar:checked ~ .menu {
+  display: block;
+  transition: all;
+}
+.menu {
+  opacity: 0;
+  max-height: 0;
+  overflow: hidden;
+  transition: opacity 0.3s, max-height 0.3s;
+}
+
+#bar:checked ~ .menu {
+  transition: opacity 0.5s, max-height 0.5s;
+  opacity: 1;
+  max-height: 1000px; /*Adjust to your menu's actual height*/
 }

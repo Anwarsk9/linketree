@@ -23,12 +23,10 @@ const HeroForm = () => {
         <span className="py-4  pl-4 bg-white">linktree.to/</span>
         <input
           type="text"
-          className="py-4 bg-white outline-none"
+          className="w-[90%] md:w-full py-4 bg-white outline-none"
           placeholder="username"
         />
-        <button className="py-4 px-6 bg-blue-500 text-white">
-          Join for free
-        </button>
+        <button className="py-4 px-6 bg-blue-500 text-white">Join</button>
       </form>
     </div>
   );
