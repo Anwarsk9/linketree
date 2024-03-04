@@ -9,7 +9,7 @@ const Contact = () => {
         <div className="contact-info">
           <h2 className="info-title">Contact Information</h2>
           <p className="info-text">
-            We're here to help! Reach out to us via phone or email.
+            We&apos;re here to help! Reach out to us via phone or email.
           </p>
           <p className="info-text">
             <strong>Phone:</strong> +1 (123) 456-7890
