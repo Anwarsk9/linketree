@@ -12,6 +12,9 @@ const nextConfig = {
       {
         hostname: "imgs.search.brave.com",
       },
+      {
+        hostname: "via.placeholder.com",
+      },
     ],
   },
   env: {

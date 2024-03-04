@@ -2,7 +2,7 @@ import Image from "next/image";
 
 const About = () => {
   return (
-    <div className="container mx-auto mt-5">
+    <div className="container mx-auto py-12 px-5">
       <h1 className="text-3xl font-bold text-center mb-6">About Us</h1>
       <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
         <div>
@@ -10,6 +10,8 @@ const About = () => {
             src="https://via.placeholder.com/300"
             alt="Company Logo"
             className="rounded-lg mb-4"
+            width={300}
+            height={300}
           />
           <p className="text-lg mb-4">
             Welcome to our Linktree page! We&apos;re here to make it easy for
