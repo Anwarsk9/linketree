@@ -9,6 +9,9 @@ const nextConfig = {
       {
         hostname: "res.cloudinary.com",
       },
+      {
+        hostname: "imgs.search.brave.com",
+      },
     ],
   },
   env: {

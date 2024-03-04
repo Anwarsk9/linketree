@@ -11,7 +11,7 @@ import { useState } from "react";
 import { imgUploadToCloudinary } from "@/actions/ImgUploadToCloudinary";
 import { faCloudArrowUp } from "@fortawesome/free-solid-svg-icons/faCloudArrowUp";
 
-const PageSettingsForm = ({ page, session }) => {
+const PageSettingsForm = ({ page }) => {
   const [bgType, setBgType] = useState(page?.bgType);
   const [bgColor, setBgColor] = useState(page?.bgColor);
   const [bgImgName, setBgImgName] = useState("");
@@ -165,7 +165,7 @@ const PageSettingsForm = ({ page, session }) => {
                       ? proPreview
                         ? proPreview
                         : profileImg.url
-                      : session?.user?.image
+                      : "https://imgs.search.brave.com/mDdtZ12xiGTjupVmFywXaqmw7taeD-L12YCXsD02hPQ/rs:fit:860:0:0/g:ce/aHR0cHM6Ly90NC5m/dGNkbi5uZXQvanBn/LzAxLzA3LzQzLzQ1/LzM2MF9GXzEwNzQz/NDUxMV9pYXJGMno4/OGM2RHM2QWxndHdv/dEhTQWt0V0NkWU9u/Ny5qcGc"
                   }
                   width={150}
                   height={150}

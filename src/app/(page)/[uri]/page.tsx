@@ -5,7 +5,6 @@ import Image from "next/image";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { notFound } from "next/navigation";
 import {
-  faBars,
   faCircleLeft,
   faEnvelope,
   faLink,
@@ -79,18 +78,22 @@ const URI = async ({ params }: { params: { uri: string } }) => {
     }
   };
   //@ts-ignore
-  const { user } = await getServerSession(authOptions);
+  const user = await getServerSession(authOptions);
   await Event.create({ type: "view", uri });
   return page ? (
     <div className="bg-blue-950 text-white h-screen">
-      {user.email === page.owner ? (
-        <Link
-          href={"/account"}
-          className="flex text-black absolute z-20 mt-8 ml-7 bg-white w-fit hover:cursor-pointer p-3 rounded"
-        >
-          <FontAwesomeIcon icon={faCircleLeft} className="w-5" />
-          <span className="ml-1 hover:cursor-pointer">Edit My Profile</span>
-        </Link>
+      {user ? (
+        user?.user?.email === page.owner ? (
+          <Link
+            href={"/account"}
+            className="flex text-black absolute z-20 mt-8 ml-7 bg-white w-fit hover:cursor-pointer p-3 rounded"
+          >
+            <FontAwesomeIcon icon={faCircleLeft} className="w-5" />
+            <span className="ml-1 hover:cursor-pointer">Edit My Profile</span>
+          </Link>
+        ) : (
+          ""
+        )
       ) : (
         ""
       )}
@@ -109,7 +112,11 @@ const URI = async ({ params }: { params: { uri: string } }) => {
       <div className="flex justify-center -mt-16 md:-mt-20">
         <div className="border-4 border-white rounded-full overflow-hidden">
           <Image
-            src={page.profile_image.url ? page.profile_image.url : user.image}
+            src={
+              page.profile_image.url
+                ? page.profile_image.url
+                : "https://imgs.search.brave.com/mDdtZ12xiGTjupVmFywXaqmw7taeD-L12YCXsD02hPQ/rs:fit:860:0:0/g:ce/aHR0cHM6Ly90NC5m/dGNkbi5uZXQvanBn/LzAxLzA3LzQzLzQ1/LzM2MF9GXzEwNzQz/NDUxMV9pYXJGMno4/OGM2RHM2QWxndHdv/dEhTQWt0V0NkWU9u/Ny5qcGc"
+            }
             width={150}
             height={150}
             alt="profile picture"

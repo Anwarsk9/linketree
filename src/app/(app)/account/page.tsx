@@ -29,7 +29,7 @@ const Account = async (req: Request) => {
     leanPage._id = leanPage._id.toString();
     return (
       <div>
-        <PageSettingsForm page={leanPage} session={isLoggedIn} />
+        <PageSettingsForm page={leanPage} />
         <AddSocialMediaLinksForm
           socialMedia_Links={leanPage.socialMedia_Links}
         />
