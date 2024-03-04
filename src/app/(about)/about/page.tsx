@@ -12,8 +12,8 @@ const About = () => {
             className="rounded-lg mb-4"
           />
           <p className="text-lg mb-4">
-            Welcome to our Linktree page! We're here to make it easy for you to
-            connect with us and access all of our important links and
+            Welcome to our Linktree page! We&apos;re here to make it easy for
+            you to connect with us and access all of our important links and
             information.
           </p>
           <p className="text-lg mb-4">
@@ -30,9 +30,9 @@ const About = () => {
           </p>
           <p className="text-lg mb-4">
             Our team is passionate about providing you with the best experience
-            possible. Whether you're looking for our social media profiles,
+            possible. Whether you&apos;re looking for our social media profiles,
             contact information, or just want to learn more about what we do,
-            you'll find it all right here!
+            you&apos;ll find it all right here!
           </p>
         </div>
         <div>
@@ -52,9 +52,9 @@ const About = () => {
           </ul>
           <h2 className="text-2xl font-semibold mb-4">Get in Touch</h2>
           <p className="text-lg mb-4">
-            Have questions or feedback? We'd love to hear from you! Feel free to
-            reach out to us through any of our social media channels or via
-            email.
+            Have questions or feedback? We&apos;d love to hear from you! Feel
+            free to reach out to us through any of our social media channels or
+            via email.
           </p>
           <p className="text-lg">Follow us on:</p>
           <div className="flex space-x-4 mt-2">
