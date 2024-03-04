@@ -82,18 +82,18 @@ export const saveBaseFormChangesToDB = async (
   }
 };
 
-export const saveSocialMediaOptionsToDB = async (formData: object) => {
+export const saveSocialMediaOptionsToDB = async (data: object) => {
   //@ts-ignore
   const session = await getServerSession(authOptions);
   if (session) {
     const optionValues = {};
-    for (let key in formData) {
-      if (Object.keys(formData).length) {
+    for (let key in data) {
+      if (Object.keys(data).length) {
         //@ts-ignore
-        optionValues[key] = formData[key];
+        optionValues[key] = data[key];
       }
     }
-    if (Object.keys(optionValues).length !== 0)
+    if (Object.keys(optionValues).length >= 0)
       await Page.findOneAndUpdate(
         { owner: session?.user?.email },
         { socialMedia_Links: optionValues }

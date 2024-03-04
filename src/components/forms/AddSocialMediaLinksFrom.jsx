@@ -99,20 +99,22 @@ const AddSocialMediaLinksForm = ({ socialMedia_Links }) => {
 
   const addButtonToProfile = (button) => {
     setActiveButton((prevButton) => {
-      if(prevButton){
+      if (prevButton) {
         return [...prevButton, button];
-      }else{
+      } else {
         return [button];
       }
     });
   };
 
   const handleAction = async (formData) => {
+    console.log(formData);
     const saveData = {};
     formData.forEach((value, key) => {
       if (value) {
         saveData[key] = value;
       }
+      console.log(saveData);
     });
     await saveSocialMediaOptionsToDB(saveData).then((result) => {
       if (result) {
@@ -125,13 +127,14 @@ const AddSocialMediaLinksForm = ({ socialMedia_Links }) => {
 
   const handleDelete = (btn) => {
     const addBtn = activeButton.filter((el) => el.key !== btn.key);
+    console.log(addBtn);
     setActiveButton(addBtn);
   };
 
   const notActiveBtns = socialMediaOptions.filter((btn1) => {
     if (activeButton) {
       return activeButton.every((btn2) => btn2.key !== btn1.key);
-    }else{
+    } else {
       return btn1;
     }
   });
@@ -159,7 +162,9 @@ const AddSocialMediaLinksForm = ({ socialMedia_Links }) => {
                   type="text"
                   name={b.key}
                   placeholder={b.placeholder}
-                  defaultValue={socialMedia_Links?socialMedia_Links[b.key]:""}
+                  defaultValue={
+                    socialMedia_Links ? socialMedia_Links[b.key] : ""
+                  }
                   className="bg-gray-300 grow p-2 outline-blue-400"
                 />
                 <label
