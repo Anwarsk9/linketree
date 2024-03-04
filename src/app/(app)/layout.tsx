@@ -31,7 +31,7 @@ export default async function RootLayout({
     .populate("bg_image")
     .populate("profile_image")
     .lean();
-  return (
+  return isGrabedUserName ? (
     <html lang="en">
       <body className={inter.className}>
         <label
@@ -46,27 +46,29 @@ export default async function RootLayout({
           className="flex absolute md:static -left-56 transition-all"
           id="nav-bar"
         >
-          {isGrabedUserName ? (
-            <>
-              <label
-                htmlFor="nav"
-                className="hidden backdrop fixed inset-0 bg-black/80 z-10"
-              ></label>
-              <aside className="bg-white relative z-50 min-h-screen w-72 p-4 shadow-2xl">
-                <div className="sticky top-0 p-8">
-                  <AsideBar
-                    imgSrc={session?.user?.image}
-                    //@ts-ignore
-                    name={isGrabedUserName?.uri}
-                  />
-                </div>
-              </aside>
-            </>
-          ) : (
-            ""
-          )}
+          <>
+            <label
+              htmlFor="nav"
+              className="hidden backdrop fixed inset-0 bg-black/80 z-10"
+            ></label>
+            <aside className="bg-white relative z-50 min-h-screen w-72 p-4 shadow-2xl">
+              <div className="sticky top-0 p-8">
+                <AsideBar
+                  imgSrc={session?.user?.image}
+                  //@ts-ignore
+                  name={isGrabedUserName?.uri}
+                />
+              </div>
+            </aside>
+          </>
           <div className="!relative w-full h-full p-6">{children}</div>
         </nav>
+      </body>
+    </html>
+  ) : (
+    <html>
+      <body>
+        <div className="mt-16">{children}</div>
       </body>
     </html>
   );

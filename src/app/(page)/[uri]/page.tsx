@@ -5,6 +5,8 @@ import Image from "next/image";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { notFound } from "next/navigation";
 import {
+  faBars,
+  faCircleLeft,
   faEnvelope,
   faLink,
   faLocationDot,
@@ -81,6 +83,17 @@ const URI = async ({ params }: { params: { uri: string } }) => {
   await Event.create({ type: "view", uri });
   return page ? (
     <div className="bg-blue-950 text-white h-screen">
+      {user.email === page.owner ? (
+        <Link
+          href={"/account"}
+          className="flex text-black absolute z-20 mt-8 ml-7 bg-white w-fit hover:cursor-pointer p-3 rounded"
+        >
+          <FontAwesomeIcon icon={faCircleLeft} className="w-5" />
+          <span className="ml-1 hover:cursor-pointer">Edit My Profile</span>
+        </Link>
+      ) : (
+        ""
+      )}
       <div
         className="w-full h-52  bg-cover bg-center"
         style={

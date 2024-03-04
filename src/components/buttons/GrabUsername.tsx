@@ -3,7 +3,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowRight } from "@fortawesome/free-solid-svg-icons";
 import { Flash } from "@/components/sweetFlash/Flash";
 import AccountFormData from "../../actions/AccountFormData";
-import { useState } from "react";
+import React, { useState } from "react";
 import { useRouter } from "next/navigation";
 
 const GrabUsername = ({ user }: { user: any }) => {
@@ -12,11 +12,13 @@ const GrabUsername = ({ user }: { user: any }) => {
   let [name, setName] = useState(user);
   const router = useRouter();
 
-  const addUsername = async (formData: any) => {
-    const uri: string = formData.get("username");
-    if (uri.includes(" ")) {
+  const addUsername = async (event: React.FormEvent<HTMLFormElement>) => {
+    event?.preventDefault();
+    const formData = new FormData(event.currentTarget);
+    const uri: string = formData.get("username") as string;
+    if (uri.includes(" ") || uri.includes(".") || uri.includes("_")) {
       setGrabnameWithoutSpacing(false);
-      Flash("error", "spaces are not allowed!");
+      Flash("error", "Please use plane text only!");
     } else {
       setGrabnameWithoutSpacing(true);
       const username = await AccountFormData(uri);
@@ -34,7 +36,6 @@ const GrabUsername = ({ user }: { user: any }) => {
       }
     }
   };
-
   return (
     <>
       <div>
@@ -45,7 +46,7 @@ const GrabUsername = ({ user }: { user: any }) => {
       </div>
       <div className="flex justify-center">
         <form
-          action={addUsername}
+          onSubmit={addUsername}
           className="w-[85%] flex flex-col items-center"
         >
           <input
