@@ -42,16 +42,13 @@ export default async function RootLayout({
           <span className="ml-1 hover:cursor-pointer">Open navigation</span>
         </label>
         <input className="hidden" type="checkbox" id="nav" />
-        <nav
-          className="flex absolute md:static -left-80 transition-all"
-          id="nav-bar"
-        >
+        <nav className="absolute -left-80 transition-all" id="nav-bar">
           <>
             <label
               htmlFor="nav"
               className="hidden backdrop fixed inset-0 bg-black/80 z-10"
             ></label>
-            <aside className="hidden sm:block bg-white relative z-50 min-h-screen w-72 p-4 shadow-2xl">
+            <aside className="bg-white relative z-50 min-h-screen w-60 p-4 shadow-2xl">
               <div className="sticky top-0 p-8">
                 <AsideBar
                   imgSrc={session?.user?.image}
@@ -61,11 +58,11 @@ export default async function RootLayout({
               </div>
             </aside>
           </>
-          <div className="hidden md:block w-full sm:ml-0 sm:!relative sm:w-full sm:h-full sm:p-6">
+          {/* <div className=" w-full sm:ml-0 sm:!relative sm:w-full sm:h-full sm:p-6">
             {children}
-          </div>
+          </div> */}
         </nav>
-        <div className="block md:hidden w-full sm:ml-0 sm:!relative sm:w-full sm:h-full sm:p-6">
+        <div className="block md:hidden">
           {children}
         </div>
       </body>

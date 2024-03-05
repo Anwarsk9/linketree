@@ -18,7 +18,6 @@ import { Cloudinary } from "@/actions/Cloudinary";
 
 const AddPublicLinks = ({ links }) => {
   const [publicLinks, SetPublicLinks] = useState(links || []);
-  const [publicId, setPublicId] = useState();
 
   const addNewLink = () => {
     SetPublicLinks((prevValue) => {
@@ -135,7 +134,7 @@ const AddPublicLinks = ({ links }) => {
                 </div>
                 <label className="block mt-4 -ml-7 p-1 border text-gray-600 text-center rounded border-black hover:cursor-pointer">
                   <FontAwesomeIcon icon={faCloudArrowUp} className="mr-2 w-5" />
-                  <span>upload image</span>
+                  <span>upload icon</span>
                   <input
                     type="file"
                     onChange={(ev) => previewImages(ev, el.key)}
