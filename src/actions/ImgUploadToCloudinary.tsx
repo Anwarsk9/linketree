@@ -17,9 +17,9 @@ export const imgUploadToCloudinary = async (
   const returnData = [];
 
   const saveToCloudinary = async (imgFile: any) => {
-    const arrayBuffer = await imgFile.arrayBuffer();
-    const buffer = new Uint8Array(arrayBuffer);
     try {
+      const arrayBuffer = await imgFile.arrayBuffer();
+      const buffer = new Uint8Array(arrayBuffer);
       const result = await new Promise((resolve, reject) => {
         cloudinary.uploader
           .upload_stream(
@@ -49,42 +49,58 @@ export const imgUploadToCloudinary = async (
   if (bg_pic?.size) {
     console.log("bg_Pic.size conditon is true.");
     console.log(public_id);
-    if (public_id) {
-      await cloudinary.uploader
-        .destroy(public_id)
-        .then((result) => console.log(result))
-        .catch((err) => console.log(err));
+    try {
+      if (public_id) {
+        await cloudinary.uploader
+          .destroy(public_id)
+          .then((result) => console.log(result))
+          .catch((err) => console.log(err));
+      }
+      //@ts-ignore
+      const { url: bg_url, public_id: bg_public_id } = await saveToCloudinary(
+        bg_pic
+      ).catch((err) => console.log(err));
+      returnData.push({ bg_url, bg_public_id });
+    } catch (err) {
+      console.log(err);
     }
-    //@ts-ignore
-    const { url: bg_url, public_id: bg_public_id } = await saveToCloudinary(
-      bg_pic
-    ).catch((err) => console.log(err));
-    returnData.push({ bg_url, bg_public_id });
   }
   if (profile_pic?.size) {
     console.log("profile_Pic.size conditon is true.");
     console.log(public_id_for_profile);
     if (public_id_for_profile) {
-      await cloudinary.uploader
-        .destroy(public_id_for_profile)
-        .then((result) => console.log(result))
-        .catch((err) => {
-          console.log(err);
-        });
+      try {
+        await cloudinary.uploader
+          .destroy(public_id_for_profile)
+          .then((result) => console.log(result))
+          .catch((err) => {
+            console.log(err);
+          });
+      } catch (err) {
+        console.log(err);
+      }
     }
-    //@ts-ignore
-    const { url: profile_url, public_id: profile_public_id } =
-      await saveToCloudinary(profile_pic).catch((err) => console.log(err));
-    returnData.push({ profile_url, profile_public_id });
+    try {
+      //@ts-ignore
+      const { url: profile_url, public_id: profile_public_id } =
+        await saveToCloudinary(profile_pic).catch((err) => console.log(err));
+      returnData.push({ profile_url, profile_public_id });
+      return returnData;
+    } catch (err) {
+      console.log(err);
+    }
   }
-  return returnData;
 };
 
 export const removeLink = async (public_id: string) => {
   if (public_id) {
-    await cloudinary.uploader
-      .destroy(public_id)
-      .then((result) => console.log(result))
-      .catch((err) => console.log(err));
+    try {
+      await cloudinary.uploader
+        .destroy(public_id)
+        .then((result) => console.log(result))
+        .catch((err) => console.log(err));
+    } catch (err) {
+      console.log(err);
+    }
   }
 };
