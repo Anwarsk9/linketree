@@ -36,14 +36,14 @@ export default async function RootLayout({
       <body className={inter.className}>
         <label
           htmlFor="nav"
-          className="md:hidden absolute z-20 mt-8 ml-7 bg-white w-fit hover:cursor-pointer p-3 rounded"
+          className="mt-2 ml-2 md:hidden absolute z-20 sm:mt-8 sm:ml-7 bg-white w-fit hover:cursor-pointer p-3 rounded"
         >
           <FontAwesomeIcon icon={faBars} className="w-5" />
           <span className="ml-1 hover:cursor-pointer">Open navigation</span>
         </label>
         <input className="hidden" type="checkbox" id="nav" />
         <nav
-          className="flex absolute md:static -left-56 transition-all"
+          className="flex absolute md:static -left-80 transition-all"
           id="nav-bar"
         >
           <>
@@ -51,7 +51,7 @@ export default async function RootLayout({
               htmlFor="nav"
               className="hidden backdrop fixed inset-0 bg-black/80 z-10"
             ></label>
-            <aside className="bg-white relative z-50 min-h-screen w-72 p-4 shadow-2xl">
+            <aside className="hidden sm:block bg-white relative z-50 min-h-screen w-72 p-4 shadow-2xl">
               <div className="sticky top-0 p-8">
                 <AsideBar
                   imgSrc={session?.user?.image}
@@ -61,8 +61,13 @@ export default async function RootLayout({
               </div>
             </aside>
           </>
-          <div className="!relative w-full h-full p-6">{children}</div>
+          <div className="hidden md:block w-full sm:ml-0 sm:!relative sm:w-full sm:h-full sm:p-6">
+            {children}
+          </div>
         </nav>
+        <div className="block md:hidden w-full sm:ml-0 sm:!relative sm:w-full sm:h-full sm:p-6">
+          {children}
+        </div>
       </body>
     </html>
   ) : (

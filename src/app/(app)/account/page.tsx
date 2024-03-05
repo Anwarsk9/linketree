@@ -28,13 +28,13 @@ const Account = async (req: Request) => {
     const leanPage = isGrabedUserName.toJSON();
     leanPage._id = leanPage._id.toString();
     return (
-      <div>
+      <>
         <PageSettingsForm page={leanPage} />
         <AddSocialMediaLinksForm
           socialMedia_Links={leanPage.socialMedia_Links}
         />
         <AddPublicLinks links={leanPage?.links} />
-      </div>
+      </>
     );
   } else {
     return (

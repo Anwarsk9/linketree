@@ -146,37 +146,37 @@ const AddSocialMediaLinksForm = ({ socialMedia_Links }) => {
         action={handleAction}
         onSubmit={() => toast.loading("loading...", { id: "loading" })}
       >
-        {/* <ReactSortable list={activeButton} setList={setActiveButton}> */}
-        {activeButton
-          ? activeButton.map((b, idx) => (
-              <div className="flex mb-4" key={idx}>
-                <div className="flex  items-center gap-2 bg-gray-400 text-gray-700 w-36">
-                  <FontAwesomeIcon
-                    icon={faGripLines}
-                    className="h-4 p-2 pr-0 hover:cursor-grab text-black"
+        <ReactSortable list={activeButton} setList={setActiveButton}>
+          {activeButton
+            ? activeButton.map((b, idx) => (
+                <div className="flex mb-4" key={idx}>
+                  <div className="flex items-center pr-4 sm:pr-0 gap-2 bg-gray-400 text-gray-700 sm:w-36">
+                    <FontAwesomeIcon
+                      icon={faGripLines}
+                      className="h-4 p-2 pr-0 hover:cursor-grab text-black"
+                    />
+                    <FontAwesomeIcon icon={b.icon} className="h-5" />
+                    <span className="hidden sm:block">{b.label}</span>
+                  </div>
+                  <input
+                    type="text"
+                    name={b.key}
+                    placeholder={b.placeholder}
+                    defaultValue={
+                      socialMedia_Links ? socialMedia_Links[b.key] : ""
+                    }
+                    className="bg-gray-300 grow p-2 outline-blue-400"
                   />
-                  <FontAwesomeIcon icon={b.icon} className="h-5" />
-                  <span>{b.label}</span>
+                  <label
+                    onClick={() => handleDelete(b)}
+                    className="p-4 bg-gray-400 hover:cursor-grab"
+                  >
+                    <FontAwesomeIcon icon={faTrash} />
+                  </label>
                 </div>
-                <input
-                  type="text"
-                  name={b.key}
-                  placeholder={b.placeholder}
-                  defaultValue={
-                    socialMedia_Links ? socialMedia_Links[b.key] : ""
-                  }
-                  className="bg-gray-300 grow p-2 outline-blue-400"
-                />
-                <label
-                  onClick={() => handleDelete(b)}
-                  className="p-4 bg-gray-400 hover:cursor-grab"
-                >
-                  <FontAwesomeIcon icon={faTrash} />
-                </label>
-              </div>
-            ))
-          : ""}
-        {/* </ReactSortable> */}
+              ))
+            : ""}
+        </ReactSortable>
         <div className="flex flex-wrap">
           {notActiveBtns.map((mediaOption, idx) => (
             <div className="p-1" key={idx}>
