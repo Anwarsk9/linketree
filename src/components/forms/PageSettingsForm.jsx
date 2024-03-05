@@ -87,8 +87,6 @@ const PageSettingsForm = ({ page }) => {
         setProPreview(reader.result);
       };
       reader.readAsDataURL(selectedFile);
-      console.log("file selected");
-      console.log(proPreview);
     }
 
     if (event.target.files.length) {
@@ -99,7 +97,6 @@ const PageSettingsForm = ({ page }) => {
   const loading = () => {
     toast.loading("Loading...", { id: "loading" });
   };
-  console.log(profileImgName);
   return (
     <>
       <form
