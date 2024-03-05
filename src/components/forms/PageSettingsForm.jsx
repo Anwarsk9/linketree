@@ -80,7 +80,6 @@ const PageSettingsForm = ({ page }) => {
     }
   };
   const handleProfileImgName = (event) => {
-    console.log(event.target.files);
     const selectedFile = event.target.files[0];
     if (selectedFile && selectedFile.type.includes("image")) {
       const reader = new FileReader();
@@ -88,6 +87,8 @@ const PageSettingsForm = ({ page }) => {
         setProPreview(reader.result);
       };
       reader.readAsDataURL(selectedFile);
+      console.log("file selected");
+      console.log(proPreview);
     }
 
     if (event.target.files.length) {
@@ -98,7 +99,7 @@ const PageSettingsForm = ({ page }) => {
   const loading = () => {
     toast.loading("Loading...", { id: "loading" });
   };
-
+  console.log(profileImgName);
   return (
     <>
       <form
@@ -165,6 +166,8 @@ const PageSettingsForm = ({ page }) => {
                       ? proPreview
                         ? proPreview
                         : profileImg.url
+                      : proPreview
+                      ? proPreview
                       : "https://imgs.search.brave.com/mDdtZ12xiGTjupVmFywXaqmw7taeD-L12YCXsD02hPQ/rs:fit:860:0:0/g:ce/aHR0cHM6Ly90NC5m/dGNkbi5uZXQvanBn/LzAxLzA3LzQzLzQ1/LzM2MF9GXzEwNzQz/NDUxMV9pYXJGMno4/OGM2RHM2QWxndHdv/dEhTQWt0V0NkWU9u/Ny5qcGc"
                   }
                   width={150}
@@ -175,22 +178,20 @@ const PageSettingsForm = ({ page }) => {
               </div>
               <div className="flex justify-center items-center">
                 <label
-                  htmlFor="profile-pic"
                   className="flex justify-end relative rounded-full ml-24 -mt-12 shadow shadow-black/50  bg-white hover:cursor-pointer"
                 >
-                  <span className="flex justify-center items-center gap-1 bg-white p-2 rounded-full">
+                  <span className="flex justify-center items-center w-max gap-1 bg-white p-2 rounded-full">
                     <FontAwesomeIcon icon={faCloudArrowUp} className="h-6" />
-                    {profileImgName ? <span>{profileImgName}</span> : ""}
+                    <span>{profileImgName}</span>
                   </span>
+                  <input
+                    type="file"
+                    onChange={handleProfileImgName}
+                    name="profile_pic"
+                    className="hidden"
+                  />
                 </label>
               </div>
-              <input
-                type="file"
-                onChange={handleProfileImgName}
-                name="profile_pic"
-                className="hidden"
-                id="profile-pic"
-              />
             </div>
           </div>
           <div className="flex flex-col p-2">

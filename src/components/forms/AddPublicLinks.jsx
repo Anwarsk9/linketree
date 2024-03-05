@@ -97,7 +97,7 @@ const AddPublicLinks = ({ links }) => {
   };
 
   return (
-    <div className="bg-white p-2 mt-4">
+    <div className="bg-white p-2 my-4">
       <h3 className="text-xl font-semibold">Add PublicLinks</h3>
       <div className="w-28" onClick={addNewLink}>
         <div className="flex items-center gap-2 mt-4 ml-3  hover:cursor-pointer">
@@ -109,7 +109,7 @@ const AddPublicLinks = ({ links }) => {
         </div>
       </div>
       <form action={onSubmit} onSubmit={loading}>
-        <ReactSortable list={publicLinks} setList={SetPublicLinks}>
+        <ReactSortable list={publicLinks?publicLinks:""} setList={SetPublicLinks}>
           {publicLinks.map((el, index) => (
             <div key={el.key} className="ml-3 mt-10 flex">
               <div className="flex items-center -ml-2 mr-4 mb-10">

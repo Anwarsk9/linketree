@@ -145,7 +145,7 @@ const AddSocialMediaLinksForm = ({ socialMedia_Links }) => {
         action={handleAction}
         onSubmit={() => toast.loading("loading...", { id: "loading" })}
       >
-        <ReactSortable list={activeButton} setList={setActiveButton}>
+        <ReactSortable list={activeButton?activeButton:""} setList={setActiveButton}>
           {activeButton
             ? activeButton.map((b, idx) => (
                 <div className="flex mb-4" key={idx}>
