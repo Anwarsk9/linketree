@@ -88,7 +88,6 @@ const socialMediaOptions = [
 
 const AddSocialMediaLinksForm = ({ socialMedia_Links }) => {
   let activeButtons;
-  console.log(socialMedia_Links);
   if (socialMedia_Links) {
     const buttonsToProfile = Object.keys(socialMedia_Links);
     activeButtons = socialMediaOptions.filter((btn1) => {

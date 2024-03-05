@@ -42,7 +42,7 @@ export default async function RootLayout({
           <span className="ml-1 hover:cursor-pointer">Open navigation</span>
         </label>
         <input className="hidden" type="checkbox" id="nav" />
-        <nav className="absolute -left-80 transition-all" id="nav-bar">
+        <nav className="flex absolute md:left-0 -left-80 transition-all" id="nav-bar">
           <>
             <label
               htmlFor="nav"
@@ -58,13 +58,11 @@ export default async function RootLayout({
               </div>
             </aside>
           </>
-          {/* <div className=" w-full sm:ml-0 sm:!relative sm:w-full sm:h-full sm:p-6">
+          <div className="hidden md:block w-full sm:ml-0 sm:!relative sm:h-full sm:p-6">
             {children}
-          </div> */}
+          </div>
         </nav>
-        <div className="block md:hidden">
-          {children}
-        </div>
+        <div className="block md:hidden">{children}</div>
       </body>
     </html>
   ) : (
