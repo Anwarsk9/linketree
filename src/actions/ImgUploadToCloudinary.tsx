@@ -18,27 +18,17 @@ export const imgUploadToCloudinary = async (
 
   const saveToCloudinary = async (imgFile: any) => {
     try {
-      const arrayBuffer = await imgFile.arrayBuffer();
-      const buffer = new Uint8Array(arrayBuffer);
-      const result = await new Promise((resolve, reject) => {
-        cloudinary.uploader
-          .upload_stream(
-            {
-              folder: "linkTree",
-              format: "jpg",
-              allowed_formats: ["jpg"],
-              unique_filename: true,
-            },
-            function (error, result) {
-              if (error) {
-                reject(error);
-                return;
-              }
-              resolve(result);
-            }
-          )
-          .end(buffer);
-      });
+      const formData = new FormData();
+      formData.append("file", imgFile);
+      formData.append("upload_preset", `${process.env.CLOUDINARY_PRESET_NAME}`);
+      const uploadResponse = await fetch(
+        `${process.env.CLOUDINARY_API_URL}/upload`,
+        {
+          method: "POST",
+          body: formData,
+        }
+      );
+      const result = await uploadResponse.json();
       //@ts-ignore
       return { url: result?.url, public_id: result?.public_id };
     } catch (err) {
@@ -66,8 +56,6 @@ export const imgUploadToCloudinary = async (
     }
   }
   if (profile_pic?.size) {
-    console.log("profile_Pic.size conditon is true.");
-    console.log(public_id_for_profile);
     if (public_id_for_profile) {
       try {
         await cloudinary.uploader
