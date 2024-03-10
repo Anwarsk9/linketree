@@ -43,8 +43,6 @@ export const imgUploadToCloudinary = async (
       if (public_id) {
         await cloudinary.uploader
           .destroy(public_id)
-          .then((result) => console.log(result))
-          .catch((err) => console.log(err));
       }
       //@ts-ignore
       const { url: bg_url, public_id: bg_public_id } = await saveToCloudinary(

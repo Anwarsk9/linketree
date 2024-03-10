@@ -182,7 +182,7 @@ const URI = async ({ params }: { params: { uri: string } }) => {
               )}
             </div>
             <div className="flex flex-col mt-3">
-              <span>{link.title}</span>
+              <span>{link.title? link.title:"no description"}</span>
               <span className="text-white/60 mt-2">{link.subtitle}</span>
             </div>
           </Link>
