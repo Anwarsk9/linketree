@@ -41,8 +41,7 @@ export const imgUploadToCloudinary = async (
     console.log(public_id);
     try {
       if (public_id) {
-        await cloudinary.uploader
-          .destroy(public_id)
+        await cloudinary.uploader.destroy(public_id);
       }
       //@ts-ignore
       const { url: bg_url, public_id: bg_public_id } = await saveToCloudinary(
@@ -56,12 +55,7 @@ export const imgUploadToCloudinary = async (
   if (profile_pic?.size) {
     if (public_id_for_profile) {
       try {
-        await cloudinary.uploader
-          .destroy(public_id_for_profile)
-          .then((result) => console.log(result))
-          .catch((err) => {
-            console.log(err);
-          });
+        await cloudinary.uploader.destroy(public_id_for_profile);
       } catch (err) {
         console.log(err);
       }
@@ -81,10 +75,7 @@ export const imgUploadToCloudinary = async (
 export const removeLink = async (public_id: string) => {
   if (public_id) {
     try {
-      await cloudinary.uploader
-        .destroy(public_id)
-        .then((result) => console.log(result))
-        .catch((err) => console.log(err));
+      await cloudinary.uploader.destroy(public_id);
     } catch (err) {
       console.log(err);
     }
