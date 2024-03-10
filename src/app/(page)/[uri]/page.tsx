@@ -81,7 +81,7 @@ const URI = async ({ params }: { params: { uri: string } }) => {
   const user = await getServerSession(authOptions);
   await Event.create({ type: "view", uri });
   return page ? (
-    <div className="bg-blue-950 text-white h-screen">
+    <>
       {user ? (
         user?.user?.email === page.owner ? (
           <Link
@@ -120,7 +120,7 @@ const URI = async ({ params }: { params: { uri: string } }) => {
             width={150}
             height={150}
             alt="profile picture"
-            className="h-28 w-28 md:h-32 md:w-32"
+            className="h-28 w-28 md:h-32 md:w-32 object-cover"
           />
         </div>
       </div>
@@ -154,7 +154,7 @@ const URI = async ({ params }: { params: { uri: string } }) => {
             ))
           : ""}
       </div>
-      <div className="max-w-4xl p-2 mt-6 pr-4 flex flex-wrap gap-10 m-auto">
+      <div className="max-w-4xl p-2 mt-6 pb-10 pr-4 flex flex-wrap gap-10 m-auto">
         {page.links.map((link) => (
           <Link
             ping={"/api/click?url=" + btoa(link.url)}
@@ -164,15 +164,17 @@ const URI = async ({ params }: { params: { uri: string } }) => {
             rel="noopener noreferrer"
             className="md:w-[44%] w-[60%] m-auto h-24 flex gap-1 md:m-5 md:mr-0 mb-0 rounded bg-blue-700 shadow-2xl"
           >
-            <div className="relative right-3 top-3">
+            <div className="">
               {link.icon ? (
-                <Image
-                  src={link.icon}
-                  alt="links icon"
-                  height={70}
-                  width={70}
-                  className="rounded shadow-2xl"
-                />
+                <div className="rounded overflow-hidden relative top-2 right-4">
+                  <Image
+                    src={link.icon}
+                    alt="links icon"
+                    height={80}
+                    width={80}
+                    className="h-20 w-20 object-cover"
+                  />
+                </div>
               ) : (
                 <div className="flex justify-center bg-blue-600 h-[70px] w-[70px] rounded shadow-2xl">
                   <FontAwesomeIcon icon={faLink} className="w-8" />
@@ -186,7 +188,7 @@ const URI = async ({ params }: { params: { uri: string } }) => {
           </Link>
         ))}
       </div>
-    </div>
+    </>
   ) : (
     notFound()
   );
