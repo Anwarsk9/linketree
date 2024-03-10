@@ -150,7 +150,7 @@ const AddPublicLinks = ({ links }) => {
                   <span>Remove Link</span>
                 </div>
               </div>
-              <div className="mt-5 w-full ml-4">
+              <div className="max-w-xl md:max-w-2xl mt-5 w-full ml-4">
                 <input
                   type="text"
                   name={`title${index}`}

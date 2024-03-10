@@ -34,6 +34,7 @@ const PageSettingsForm = ({ page }) => {
         bgImg.public_id,
         profileImg.public_id
       ).then(async (imgUrl) => {
+        console.log(imgUrl);
         imgUrl.map((url) => {
           if (url.bg_url) {
             setBgImg({
@@ -191,7 +192,7 @@ const PageSettingsForm = ({ page }) => {
               </div>
             </div>
           </div>
-          <div className="flex flex-col p-2">
+          <div className="max-w-xl md:max-w-3xl flex flex-col p-2 m-auto">
             <label htmlFor="username">DISPLAY NAME</label>
             <input
               type="text"
@@ -224,7 +225,6 @@ const PageSettingsForm = ({ page }) => {
               <FontAwesomeIcon icon={faSave} className="w-5" />
               <span>Save</span>
             </LoadingBtn>
-            <Toaster />
           </div>
         </div>
       </form>

@@ -148,7 +148,7 @@ const AddSocialMediaLinksForm = ({ socialMedia_Links }) => {
         <ReactSortable list={activeButton?activeButton:""} setList={setActiveButton}>
           {activeButton
             ? activeButton.map((b, idx) => (
-                <div className="flex mb-4" key={idx}>
+                <div className="max-w-xl md:max-w-3xl mx-auto flex mb-4" key={idx}>
                   <div className="flex items-center pr-4 sm:pr-0 gap-2 bg-gray-400 text-gray-700 sm:w-36">
                     <FontAwesomeIcon
                       icon={faGripLines}

@@ -8,6 +8,7 @@ import AsideBar from "@/components/account/AsideBar";
 import { Page } from "@/models/Page";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBars } from "@fortawesome/free-solid-svg-icons";
+import { Toaster } from "react-hot-toast";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -34,6 +35,7 @@ export default async function RootLayout({
   return isGrabedUserName ? (
     <html lang="en">
       <body className={inter.className}>
+      <Toaster />
         <label
           htmlFor="nav"
           className="mt-2 ml-2 md:hidden absolute z-20 sm:mt-8 sm:ml-7 bg-white w-fit hover:cursor-pointer p-3 rounded"
@@ -58,7 +60,7 @@ export default async function RootLayout({
               </div>
             </aside>
           </>
-          <div className="hidden md:block ">
+          <div className="hidden md:block w-full sm:ml-0 sm:!relative sm:h-full sm:p-6">
             {children}
           </div>
         </nav>

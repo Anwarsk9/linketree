@@ -29,6 +29,7 @@ export const imgUploadToCloudinary = async (
         }
       );
       const result = await uploadResponse.json();
+      console.log(result);
       //@ts-ignore
       return { url: result?.url, public_id: result?.public_id };
     } catch (err) {
@@ -37,8 +38,6 @@ export const imgUploadToCloudinary = async (
   };
 
   if (bg_pic?.size) {
-    console.log("bg_Pic.size conditon is true.");
-    console.log(public_id);
     try {
       if (public_id) {
         await cloudinary.uploader.destroy(public_id);
@@ -48,6 +47,7 @@ export const imgUploadToCloudinary = async (
         bg_pic
       ).catch((err) => console.log(err));
       returnData.push({ bg_url, bg_public_id });
+      return returnData;
     } catch (err) {
       console.log(err);
     }
@@ -60,16 +60,16 @@ export const imgUploadToCloudinary = async (
         console.log(err);
       }
     }
-  try {
-    //@ts-ignore
-    const { url: profile_url, public_id: profile_public_id } =
-      await saveToCloudinary(profile_pic).catch((err) => console.log(err));
-    returnData.push({ profile_url, profile_public_id });
-    return returnData;
-  } catch (err) {
-    console.log(err);
+    try {
+      //@ts-ignore
+      const { url: profile_url, public_id: profile_public_id } =
+        await saveToCloudinary(profile_pic).catch((err) => console.log(err));
+      returnData.push({ profile_url, profile_public_id });
+      return returnData;
+    } catch (err) {
+      console.log(err);
+    }
   }
-};
 };
 
 export const removeLink = async (public_id: string) => {
