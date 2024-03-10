@@ -36,22 +36,22 @@ export const imgUploadToCloudinary = async (
     }
   };
 
-  // if (bg_pic?.size) {
-  //   console.log("bg_Pic.size conditon is true.");
-  //   console.log(public_id);
-  //   try {
-  //     if (public_id) {
-  //       await cloudinary.uploader.destroy(public_id);
-  //     }
-  //     //@ts-ignore
-  //     const { url: bg_url, public_id: bg_public_id } = await saveToCloudinary(
-  //       bg_pic
-  //     ).catch((err) => console.log(err));
-  //     returnData.push({ bg_url, bg_public_id });
-  //   } catch (err) {
-  //     console.log(err);
-  //   }
-  // }
+  if (bg_pic?.size) {
+    console.log("bg_Pic.size conditon is true.");
+    console.log(public_id);
+    // try {
+    //   if (public_id) {
+    //     await cloudinary.uploader.destroy(public_id);
+    //   }
+      //@ts-ignore
+      const { url: bg_url, public_id: bg_public_id } = await saveToCloudinary(
+        bg_pic
+      ).catch((err) => console.log(err));
+      returnData.push({ bg_url, bg_public_id });
+    // } catch (err) {
+    //   console.log(err);
+    // }
+  }
   // if (profile_pic?.size) {
   //   if (public_id_for_profile) {
   //     try {
