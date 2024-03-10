@@ -70,7 +70,7 @@ export const imgUploadToCloudinary = async (
     console.log(err);
   }
 };
-// };
+};
 
 export const removeLink = async (public_id: string) => {
   if (public_id) {

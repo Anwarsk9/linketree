@@ -58,7 +58,7 @@ export default async function RootLayout({
               </div>
             </aside>
           </>
-          <div className="hidden md:block w-full sm:ml-0 sm:!relative sm:h-full sm:p-6">
+          <div className="hidden md:block ">
             {children}
           </div>
         </nav>
