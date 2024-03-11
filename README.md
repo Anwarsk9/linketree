@@ -1,36 +1,35 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+**Linktree - Your One Link for Everything (Present - Present):**
+As the lead developer for Linktree, I conceptualized and brought to life a groundbreaking web application aimed at providing users with a unified platform for sharing their diverse digital presence. The core idea revolves around condensing multiple links, social profiles, contact information, and more into a single, easily shareable page.
 
-## Getting Started
+**Key Project Features:**
+- **Next.js and React.js Development:**
+  - Spearheaded the use of Next.js and React.js to create a dynamic and interactive user experience, ensuring smooth navigation and responsiveness across various devices.
 
-First, run the development server:
+- **Secure User Authentication with Google Auth:**
+  - Implemented Google Auth for secure and seamless user logins, enhancing the overall user experience and safeguarding user data.
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+- **Cloudinary Integration for Image Uploads:**
+  - Leveraged Cloudinary for efficient and streamlined image uploads, contributing to a visually compelling and dynamic user interface.
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+- **Error Handling and Robust Application Stability:**
+  - Implemented comprehensive error handling mechanisms, ensuring a seamless and error-free user interaction, and enhancing the overall application stability.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+- **MongoDB for Data Storage:**
+  - Utilized MongoDB as the backend database, ensuring efficient data storage, retrieval, and management of user-profiles and associated information.
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+- **User Engagement Tracking:**
+  - Developed a feature to track user views on their individual pages, providing valuable insights for data-driven decision-making and user engagement optimization.
 
-## Learn More
+**Key Achievements:**
+- Successfully led the end-to-end development of Linktree, from conceptualization to implementation, delivering a user-centric, feature-rich platform.
+- Architected and developed interactive and responsive web pages, optimizing user engagement and satisfaction.
+- Integrated Google Auth seamlessly, enhancing the overall security and trustworthiness of user interactions.
+- Established a robust error handling system, resulting in a smooth and error-free user experience.
 
-To learn more about Next.js, take a look at the following resources:
+**Technologies Used:**
+- Next.js, React.js, Google Auth, Cloudinary, MongoDB.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+Linktree showcases my ability to ideate and execute innovative solutions, combining cutting-edge technologies to create a user-friendly, secure, and engaging web application. This project underscores my proficiency in full-stack development, emphasizing a commitment to user experience, security, and technological innovation.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+### Link: 
+[`https://anwar-linketree.vercel.app/`](https://anwar-linketree.vercel.app/)
