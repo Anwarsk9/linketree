@@ -2,6 +2,8 @@
 import Link from "next/link";
 import Lagout from "@/components/buttons/SignOut";
 import { usePathname } from "next/navigation";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faCircleUser } from "@fortawesome/free-solid-svg-icons";
 
 const CollapsNavBar = ({ session }: { session: any }) => {
   const pathname = usePathname();
@@ -51,8 +53,9 @@ const CollapsNavBar = ({ session }: { session: any }) => {
         <>
           <Link
             href={"/account"}
-            className={pathname === "/account" ? isNotPath : isPath}
+            className={(pathname === "/account" ? isNotPath : isPath)+" flex justify-center items-center gap-1 mt-3" }
           >
+            <FontAwesomeIcon icon={faCircleUser} className="h-5 !text-black"/>
             My Profile
           </Link>
           <div className="mt-6">

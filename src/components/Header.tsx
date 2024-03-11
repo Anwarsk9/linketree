@@ -3,14 +3,18 @@ import { getServerSession } from "next-auth";
 import Lagout from "@/components/buttons/SignOut";
 import Link from "next/link";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faBars, faLink } from "@fortawesome/free-solid-svg-icons";
+import {
+  faBars,
+  faCircleUser,
+  faLink,
+} from "@fortawesome/free-solid-svg-icons";
 import CollapsNavBar from "./account/CollapsNavBar";
 
 const Header = async () => {
   //@ts-ignore
   const session = await getServerSession(authOptions);
   return (
-    <header className=" py-4 bg-white border-b-4">
+    <header className="relative z-50 py-4 bg-white border-b-4">
       <label
         htmlFor="bar"
         className="hover:cursor-pointer sm:hidden inline-flex items-center justify-center rounded ml-4 bg-white relative z-30"
@@ -21,14 +25,14 @@ const Header = async () => {
       <input className="hidden" type="checkbox" id="bar" />
 
       <div className="fixed menu inset-0 bg-white">
-        <CollapsNavBar session={session}/>
+        <CollapsNavBar session={session} />
       </div>
 
-      <div className="hidden sm:flex justify-between max-w-4xl px-8 mx-auto ">
+      <div className="!bg-white hidden sm:flex justify-between max-w-4xl px-8 mx-auto ">
         <div className="flex gap-6 items-center">
           <Link href={"/"} className="text-lg text-blue-600">
             <div className="flex items-center font-extrabold gap-2">
-              <FontAwesomeIcon icon={faLink} />
+              <FontAwesomeIcon icon={faLink} className="text-blue-600" />
               <span>LinkTree</span>
             </div>
           </Link>
@@ -62,8 +66,9 @@ const Header = async () => {
             </>
           ) : (
             <>
-              <Link href={"/account"} className="hover:text-black">
-                Hello, {session?.user?.name}
+              <Link href={"/account"} className="flex justify-center items-center gap-2 mr-4 hover:text-black">
+                <FontAwesomeIcon icon={faCircleUser} className="h-5 !text-black" />
+                My Profile
               </Link>
               <Lagout />
             </>

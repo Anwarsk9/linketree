@@ -55,3 +55,19 @@ body {
   opacity: 1;
   max-height: 1000px; /*Adjust to your menu's actual height*/
 }
+
+@keyframes slidIn {
+  from {
+    position: relative;
+    left: -150px;
+  }
+  to {
+    position: relative;
+    left: 100%;
+  }
+}
+
+.animation {
+  display: inline-block;
+  animation: slidIn infinite 8s linear;
+}
