@@ -23,7 +23,6 @@ import {
 import Link from "next/link";
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/libs/auth";
-import { Span } from "next/dist/trace";
 
 const socialMediaOptions = {
   email: faEnvelope,
