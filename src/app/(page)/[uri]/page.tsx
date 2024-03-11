@@ -23,6 +23,7 @@ import {
 import Link from "next/link";
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/libs/auth";
+import { Span } from "next/dist/trace";
 
 const socialMediaOptions = {
   email: faEnvelope,
@@ -126,9 +127,11 @@ const URI = async ({ params }: { params: { uri: string } }) => {
       </div>
       <div className="flex flex-col items-center mt-3">
         <h1 className="text-2xl">
-          {page.displayname
-            ? page.displayname
-            : "please create a display name to show!"}
+          {page.displayname ? (
+            page.displayname
+          ) : (
+            <span className="block text-xl md:text-2xl">please create a display name to show!</span>
+          )}
         </h1>
         <div className="flex gap-2 mt-2 text-white/50">
           <FontAwesomeIcon icon={faLocationDot} height="20" />
@@ -182,7 +185,7 @@ const URI = async ({ params }: { params: { uri: string } }) => {
               )}
             </div>
             <div className="flex flex-col mt-3">
-              <span>{link.title? link.title:"no description"}</span>
+              <span>{link.title ? link.title : "no description"}</span>
               <span className="text-white/60 mt-2">{link.subtitle}</span>
             </div>
           </Link>

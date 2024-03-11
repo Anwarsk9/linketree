@@ -9,7 +9,6 @@ import { useRouter } from "next/navigation";
 const GrabUsername = ({ user }: { user: any }) => {
   let [takenUsernameError, setTakenUsernameError] = useState(false);
   let [grabnameWithoutSpacing, setGrabnameWithoutSpacing] = useState(true);
-  let [name, setName] = useState(user);
   const router = useRouter();
 
   const addUsername = async (event: React.FormEvent<HTMLFormElement>) => {
@@ -18,8 +17,10 @@ const GrabUsername = ({ user }: { user: any }) => {
     const uri: string = formData.get("username") as string;
     if (uri.includes(" ") || uri.includes(".") || uri.includes("_")) {
       setGrabnameWithoutSpacing(false);
+      setTakenUsernameError(false);
       Flash("error", "Please use plane text only!");
     } else {
+      setTakenUsernameError(false);
       setGrabnameWithoutSpacing(true);
       const username = await AccountFormData(uri);
       if (username === false) {
@@ -29,7 +30,7 @@ const GrabUsername = ({ user }: { user: any }) => {
         setTakenUsernameError(false);
         Flash("success", "User Created Successfully!");
         setTimeout(() => {
-          router.push(`/${name}`);
+          router.refresh();
         }, 1000);
       } else {
         setTakenUsernameError(false);
@@ -50,7 +51,6 @@ const GrabUsername = ({ user }: { user: any }) => {
           className="w-[85%] flex flex-col items-center"
         >
           <input
-            onChange={(event: any) => setName(event.target.value)}
             name="username"
             className="w-1/2 p-2 mb-2 text-center outline-blue-500 shadow-lg"
             type="text"
