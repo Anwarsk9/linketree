@@ -32,4 +32,4 @@ As the lead developer for Linktree, I conceptualized and brought to life a groun
 Linktree showcases my ability to ideate and execute innovative solutions, combining cutting-edge technologies to create a user-friendly, secure, and engaging web application. This project underscores my proficiency in full-stack development, emphasizing a commitment to user experience, security, and technological innovation.
 
 ### Link: 
-[`https://anwar-linketree.vercel.app/`](https://anwar-linketree.vercel.app/)
+[`https://alpha-links.vercel.app`](https://alpha-links.vercel.app)
