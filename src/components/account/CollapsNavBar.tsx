@@ -16,7 +16,7 @@ const CollapsNavBar = ({ session }: { session: any }) => {
           <div className="w-full mb-6 flex justify-around">
             <Link
               href={"/login"}
-              className={(pathname === "/login" ? isNotPath : isPath) + "pl-12"}
+              className={(pathname === "/login" ? isNotPath : isPath) + " pl-14"}
             >
               SignIn
             </Link>
@@ -33,7 +33,7 @@ const CollapsNavBar = ({ session }: { session: any }) => {
               href={"/account"}
               className={
                 (pathname === "/account" ? isNotPath : isPath) +
-                " flex justify-center items-center gap-1"
+                " flex justify-center items-center gap-1 ml-5"
               }
             >
               <FontAwesomeIcon
