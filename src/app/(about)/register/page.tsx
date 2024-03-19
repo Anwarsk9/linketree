@@ -9,7 +9,7 @@ const Register = () => {
           <span>please use Signin method to create an account.</span>
         </div>
       </div>
-      <div className="min-h-screen flex justify-center bg-gray-100">
+      <div className="flex justify-center bg-gray-100">
         <div className="h-fit bg-white p-8 mt-14 rounded shadow-md w-full max-w-md">
           <h2 className="text-2xl font-bold mb-6 text-center">Register</h2>
           <form>

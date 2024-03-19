@@ -10,21 +10,21 @@ import {
 
 const Footer: React.FC = () => {
   return (
-    <footer className="bg-gray-800 text-white p-4">
-      <div className="container mx-auto flex justify-between items-center">
+    <footer className=" bg-gray-800 text-white p-4">
+      <div className="max-w-4xl mx-auto flex justify-between items-center">
         <div>
-          <p className="text-lg font-bold">Linktree</p>
-          <p className="text-sm">&copy; 2024 All rights reserved</p>
+          <p className="text-base font-bold">Linktree</p>
+          <p className="text-xs">&copy; 2024 All rights reserved</p>
         </div>
         <div className="flex space-x-4">
-          <a href="#" className="text-red-400 hover:text-white cursor-pointer">
-            <FontAwesomeIcon icon={faTwitter} size="2x" />
+          <a href="https://twitter.com" target="_blank" className="text-gray-400 hover:text-white cursor-pointer">
+            <FontAwesomeIcon icon={faTwitter} className="text-2xl" />
           </a>
-          <a href="#" className="text-gray-400 hover:text-white cursor-pointer">
-            <FontAwesomeIcon icon={faFacebook} size="2x" />
+          <a href="https://facebook.com" target="_blank" className="text-gray-400 hover:text-white cursor-pointer">
+            <FontAwesomeIcon icon={faFacebook} className="text-2xl" />
           </a>
-          <a href="#" className="text-gray-400 hover:text-white cursor-pointer">
-            <FontAwesomeIcon icon={faInstagram} size="2x" />
+          <a href="https://instagram.com" target="_blank" className="text-gray-400 hover:text-white cursor-pointer">
+            <FontAwesomeIcon icon={faInstagram} className="text-2xl" />
           </a>
         </div>
       </div>

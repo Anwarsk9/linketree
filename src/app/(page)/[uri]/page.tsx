@@ -1,3 +1,4 @@
+import type { Metadata } from "next";
 import { Page } from "@/models/Page";
 import { Event } from "@/models/Event";
 import React from "react";
@@ -61,8 +62,14 @@ interface Page {
     }
   ];
 }
+export const generateMetadata = ({params}:{params:{uri:string}}): Metadata => {
+  return {
+    title: params.uri,
+  };
+};
 
 const URI = async ({ params }: { params: { uri: string } }) => {
+  console.log(params);
   const { uri } = params;
   const page: Page | null = await Page.findOne({ uri })
     .populate("bg_image")
@@ -129,7 +136,9 @@ const URI = async ({ params }: { params: { uri: string } }) => {
           {page.displayname ? (
             page.displayname
           ) : (
-            <span className="block text-xl md:text-2xl">please create a display name to show!</span>
+            <span className="block text-xl md:text-2xl">
+              please create a display name to show!
+            </span>
           )}
         </h1>
         <div className="flex gap-2 mt-2 text-white/50">

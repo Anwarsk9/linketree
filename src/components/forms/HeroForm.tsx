@@ -20,7 +20,7 @@ const HeroForm = () => {
         onSubmit={formdata}
         className="inline-flex items-center shadow-lg shadow-gray-700/40"
       >
-        <span className="py-4  pl-4 bg-white">linktree.to/</span>
+        <span className="py-4  pl-4 bg-white">Alphalinks.to/</span>
         <input
           type="text"
           className="w-[90%] md:w-full py-4 bg-white outline-none"
